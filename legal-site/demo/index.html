@@ -1,810 +1,1027 @@
 <!DOCTYPE html>
-<!-- CreatorDraft — Interactive Demo (screen-record this for TikTok API application) -->
+<!-- CreatorDraft — Self-Playing Demo | TikTok Content Posting API Review -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex">
-  <title>Demo — CreatorDraft Review Dashboard</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CreatorDraft Demo — TikTok Content Posting API Review</title>
+<style>
+/* ── RESET + TOKENS ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f172a;--navy2:#1e293b;--navy3:#0d1526;
+  --accent:#4f46e5;--alight:#eef2ff;--amid:#818cf8;
+  --green:#16a34a;--greenl:#dcfce7;
+  --red:#dc2626;--redl:#fee2e2;
+  --amber:#d97706;--amberl:#fffbeb;
+  --text:#111827;--sub:#374151;--muted:#6b7280;
+  --border:#e5e7eb;--bg:#f0f4f8;--card:#ffffff;
+}
+html,body{height:100%;scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;
+}
 
-    :root {
-      --navy:   #0f172a;
-      --accent: #4f46e5;
-      --mid:    #818cf8;
-      --light:  #eef2ff;
-      --text:   #111827;
-      --sub:    #374151;
-      --muted:  #6b7280;
-      --border: #e5e7eb;
-      --green:  #16a34a;
-      --green-l:#dcfce7;
-      --red:    #dc2626;
-      --red-l:  #fee2e2;
-      --amber:  #d97706;
-      --amber-l:#fffbeb;
-    }
+/* ── HEADER ── */
+.hdr{
+  background:var(--navy);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:300;
+}
+.hdr-i{
+  max-width:1140px;margin:0 auto;padding:0 1.5rem;
+  height:54px;display:flex;align-items:center;gap:1rem;
+}
+.logo-a{display:flex;align-items:center;gap:.5rem;text-decoration:none;flex-shrink:0}
+.logo-svg{width:30px;height:30px}
+.logo-txt{font-size:15.5px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.logo-txt em{color:var(--amid);font-style:normal}
+.hdr-sep{width:1px;height:24px;background:rgba(255,255,255,.12);flex-shrink:0}
+.hdr-sub{font-size:12px;color:#475569;flex-shrink:0}
+.hdr-pills{margin-left:auto;display:flex;align-items:center;gap:.4rem;flex-shrink:0;flex-wrap:wrap}
+.pill{
+  font-size:10.5px;font-weight:700;padding:.25em .65em;
+  border-radius:999px;letter-spacing:.03em;white-space:nowrap;
+}
+.p-green{background:#166534;color:#bbf7d0}
+.p-red{background:#7f1d1d;color:#fca5a5}
+.p-blue{background:#1e3a8a;color:#bfdbfe}
+.p-amber{background:#78350f;color:#fde68a}
+.p-slate{background:rgba(255,255,255,.07);color:#94a3b8;border:1px solid #334155}
 
-    html, body { height: 100%; }
+/* ── STEP NAV ── */
+.snav{
+  background:var(--navy2);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:.6rem 1.5rem .45rem;
+}
+.snav-i{max-width:1140px;margin:0 auto}
+.snav-top{display:flex;align-items:center;gap:.75rem;margin-bottom:.4rem}
+.dots{display:flex;align-items:center}
+.dot{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:700;color:#64748b;
+  position:relative;z-index:1;cursor:pointer;transition:all .2s;
+  flex-shrink:0;
+}
+.dot:not(:last-child){margin-right:18px}
+.dot:not(:last-child)::after{
+  content:'';position:absolute;left:100%;top:50%;
+  width:18px;height:2px;background:rgba(255,255,255,.08);
+  transform:translateY(-50%);z-index:0;
+}
+.dot.done{background:var(--accent);color:#fff}
+.dot.done::after{background:var(--accent) !important}
+.dot.cur{background:var(--amid);color:#fff;box-shadow:0 0 0 3px rgba(129,140,248,.25)}
+.slabel{font-size:13px;font-weight:600;color:#e2e8f0}
+.ssub{font-size:11.5px;color:#64748b}
+.scontrols{margin-left:auto;display:flex;align-items:center;gap:.4rem}
+.sctl{
+  font-size:11.5px;font-weight:600;padding:.3em .75em;border-radius:6px;
+  border:none;cursor:pointer;font-family:inherit;transition:all .15s;
+}
+.sctl-ghost{background:rgba(255,255,255,.07);color:#94a3b8}
+.sctl-ghost:hover{background:rgba(255,255,255,.13);color:#e2e8f0}
+.sctl-pause{background:rgba(129,140,248,.15);color:var(--amid)}
+.sctl-pause:hover{background:rgba(129,140,248,.25)}
+.khint{font-size:10px;color:#334155}
+.cbar-wrap{height:3px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;margin-top:.35rem}
+.cbar{height:100%;background:var(--accent);border-radius:999px;width:100%;transition:width linear}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: #f1f5f9;
-      color: var(--text);
-      font-size: 15px;
-      line-height: 1.6;
-    }
+/* ── MAIN ── */
+.main{max-width:1140px;margin:0 auto;padding:1.75rem 1.5rem 4rem}
 
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      padding: 0 1.5rem;
-      position: sticky; top: 0; z-index: 100;
-    }
-    .hdr {
-      max-width: 1140px; margin: 0 auto;
-      height: 56px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
-    .logo-wrap img { width: 32px; height: 32px; }
-    .logo-text { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -.3px; }
-    .logo-text em { color: var(--mid); font-style: normal; }
-    .hdr-badges { display: flex; align-items: center; gap: .6rem; }
-    .badge {
-      font-size: 11px; font-weight: 700; letter-spacing: .04em;
-      padding: .25em .7em; border-radius: 999px;
-    }
-    .badge-demo { background: rgba(255,255,255,.1); color: #94a3b8; }
-    .badge-review { background: #166534; color: #dcfce7; }
-    .badge-nopub  { background: #7f1d1d; color: #fecaca; }
-    .hdr-account { display: flex; align-items: center; gap: .4rem; color: #64748b; font-size: 12.5px; }
-    .hdr-account .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block; }
+/* ── STEP SHOW/HIDE ── */
+.step{display:none;animation:fadeS .38s ease forwards}
+.step.on{display:block}
+#s6.on{display:flex}
+@keyframes fadeS{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-    /* ── PROGRESS BAR ── */
-    .progress-wrap { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); padding: .6rem 1.5rem; }
-    .progress-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; gap: 0; }
-    .prog-step {
-      flex: 1; display: flex; flex-direction: column; align-items: center; gap: .2rem;
-      position: relative; cursor: default;
-    }
-    .prog-step:not(:last-child)::after {
-      content: ''; position: absolute;
-      top: 10px; left: 50%; width: 100%; height: 2px;
-      background: rgba(255,255,255,.1);
-    }
-    .prog-step.done::after  { background: var(--accent); }
-    .prog-dot {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: rgba(255,255,255,.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 700; color: #64748b;
-      position: relative; z-index: 1;
-    }
-    .prog-step.done  .prog-dot { background: var(--accent); color: #fff; }
-    .prog-step.active .prog-dot { background: var(--mid); color: #fff; box-shadow: 0 0 0 3px rgba(129,140,248,.3); }
-    .prog-label { font-size: 10px; color: #64748b; white-space: nowrap; }
-    .prog-step.done .prog-label, .prog-step.active .prog-label { color: #c7d2fe; }
+/* ── SHARED ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem 2rem}
+.card+.card{margin-top:1.25rem}
+.sechd{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;
+}
+.sechd::after{content:'';flex:1;height:1px;background:var(--border)}
+h1.big{font-size:1.5rem;font-weight:800;letter-spacing:-.4px;margin-bottom:.3rem}
+.bsub{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--sub);margin-bottom:.35rem}
+input[type=text],textarea,select{
+  width:100%;border:1.5px solid var(--border);border-radius:8px;
+  padding:.6rem .85rem;font-size:14.5px;color:var(--text);
+  background:#fff;font-family:inherit;transition:border-color .15s;
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical}
+.fg{margin-bottom:1rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 
-    /* ── MAIN WRAPPER ── */
-    .main { max-width: 1140px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+/* Compliance lock panel */
+.lock-panel{background:var(--navy);border-radius:12px;padding:1rem 1.25rem;margin:1.25rem 0}
+.lp-row{display:flex;align-items:center;justify-content:space-between;padding:.4rem 0}
+.lp-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.05)}
+.lp-k{font-size:12.5px;color:#94a3b8;display:flex;align-items:center;gap:.5rem}
+.lp-v{font-size:11.5px;font-weight:700;padding:.22em .6em;border-radius:999px}
+.lv-on{background:#166534;color:#bbf7d0}
+.lv-off{background:#7f1d1d;color:#fca5a5}
+.lv-neu{background:rgba(255,255,255,.08);color:#94a3b8}
 
-    /* ── STEP VISIBILITY ── */
-    .step { display: none; }
-    .step.active { display: block; }
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.7rem 1.35rem;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  border:2px solid transparent;transition:all .15s;
+  font-family:inherit;white-space:nowrap;
+}
+.btn-full{width:100%;justify-content:center;font-size:15px}
+.btn-acc{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-acc:hover{background:#4338ca;border-color:#4338ca}
+.btn-grn{background:var(--green);color:#fff}
+.btn-grn:hover{background:#15803d}
+.btn-grn.pulse{animation:pBtn 1.2s ease-in-out infinite}
+@keyframes pBtn{0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}50%{box-shadow:0 0 0 10px rgba(22,163,74,0)}}
+.btn-red{background:#fff;color:var(--red);border-color:#fca5a5}
+.btn-red:hover{background:var(--redl)}
+.btn-amb{background:#fff;color:var(--amber);border-color:#fde68a}
+.btn-amb:hover{background:var(--amberl)}
+.btn-ghost{background:var(--alight);color:var(--accent)}
+.btn-ghost:hover{background:#e0e7ff}
+.btn-out{background:#fff;color:var(--accent);border-color:var(--accent)}
+.btn-out:hover{background:var(--alight)}
 
-    /* ── SHARED CARD ── */
-    .card {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 16px; padding: 2rem;
-    }
-    .step-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -.4px; margin-bottom: .35rem; }
-    .step-sub { color: var(--muted); font-size: 14px; margin-bottom: 1.75rem; }
+/* Alert */
+.alert{display:flex;align-items:flex-start;gap:.75rem;border-radius:10px;padding:.85rem 1rem;margin-bottom:1.25rem}
+.al-red{background:var(--redl);border:1px solid #fca5a5}
+.al-amb{background:var(--amberl);border:1px solid #fde68a}
+.al-grn{background:var(--greenl);border:1px solid #86efac}
+.al-blue{background:#eff6ff;border:1px solid #bfdbfe}
+.al-ico{font-size:18px;flex-shrink:0}
+.al-body{font-size:13.5px}
+.al-body strong{display:block;font-size:14px;margin-bottom:.1rem}
 
-    /* ── FORM CONTROLS ── */
-    label { display: block; font-size: 13px; font-weight: 600; color: var(--sub); margin-bottom: .35rem; }
-    input[type=text], textarea, select {
-      width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
-      padding: .65rem .9rem; font-size: 14.5px; color: var(--text);
-      background: #fff; font-family: inherit;
-      transition: border-color .15s;
-    }
-    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
-    textarea { resize: vertical; line-height: 1.6; }
-    .fgroup { margin-bottom: 1.1rem; }
-    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+/* ── STEP 1 ── */
+.trending{font-size:10.5px;font-weight:700;background:#fef9c3;color:#713f12;padding:.15em .5em;border-radius:999px;margin-left:.45rem}
 
-    /* Settings panel */
-    .settings-panel {
-      background: var(--navy); border-radius: 12px; padding: 1rem 1.25rem;
-      margin: 1.5rem 0; display: flex; flex-direction: column; gap: .65rem;
-    }
-    .setting-row { display: flex; align-items: center; justify-content: space-between; }
-    .setting-label { font-size: 13px; color: #94a3b8; }
-    .setting-val { font-size: 12px; font-weight: 700; padding: .2em .6em; border-radius: 999px; }
-    .val-on  { background: #166534; color: #dcfce7; }
-    .val-off { background: #7f1d1d; color: #fecaca; }
-    .val-neutral { background: rgba(255,255,255,.1); color: #94a3b8; }
+/* ── STEP 2: GENERATION ── */
+.gen-grid{display:grid;grid-template-columns:300px 1fr;gap:1.75rem;align-items:start}
+.gen-list{list-style:none}
+.gr{
+  display:flex;align-items:flex-start;gap:.65rem;
+  padding:.55rem 0;border-bottom:1px solid var(--border);
+  opacity:0;transform:translateY(5px);animation:fUp .4s forwards;
+}
+.gr:last-child{border-bottom:none}
+@keyframes fUp{to{opacity:1;transform:none}}
+.gr:nth-child(1){animation-delay:.35s}
+.gr:nth-child(2){animation-delay:1s}
+.gr:nth-child(3){animation-delay:1.65s}
+.gr:nth-child(4){animation-delay:2.3s}
+.gr:nth-child(5){animation-delay:2.95s}
+.gr:nth-child(6){animation-delay:3.6s}
+.gico{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10.5px;margin-top:2px}
+.ico-ok{background:var(--greenl);color:var(--green)}
+.ico-sp{background:var(--alight);border:2px solid var(--accent);border-top-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gtxt{font-size:13.5px;color:var(--sub)}
+.gtxt strong{display:block;color:var(--text);margin-bottom:.05rem}
+.gtxt code{font-size:11.5px;color:var(--accent);font-family:'Courier New',monospace}
+.gen-preview{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.gp-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.75rem}
+.sl{font-size:13.5px;color:var(--sub);padding:.5rem .75rem;border-radius:6px;margin-bottom:.4rem;border-left:3px solid transparent}
+.sl-hook{border-left-color:var(--accent);background:var(--alight)}
+.sl-demo{border-left-color:#22d3ee;background:#ecfeff}
+.sl-cta{border-left-color:var(--green);background:var(--greenl)}
+.sl-badge{font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.05em;margin-right:.35rem}
+.gen-cap{font-size:13px;color:var(--sub);font-style:italic;line-height:1.55;margin-top:.85rem;padding:.65rem .85rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+.gen-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
+.g-tag{font-size:11.5px;background:var(--alight);color:var(--accent);font-weight:600;padding:.2em .55em;border-radius:999px}
+.gen-note{background:var(--amberl);border:1px solid #fde68a;border-radius:8px;padding:.65rem .9rem;margin-top:1.1rem;font-size:13px;color:#78350f}
 
-    /* Primary button */
-    .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .75rem 1.5rem; border-radius: 10px;
-      font-size: 14.5px; font-weight: 700; cursor: pointer;
-      border: none; transition: all .15s; font-family: inherit;
-    }
-    .btn-primary { background: var(--accent); color: #fff; width: 100%; justify-content: center; }
-    .btn-primary:hover { background: #4338ca; }
-    .btn-approve { background: var(--green); color: #fff; flex: 1; justify-content: center; font-size: 15px; padding: .85rem 1rem; }
-    .btn-approve:hover { background: #15803d; }
-    .btn-reject  { background: #fff; color: var(--red); border: 2px solid var(--red-l); flex: 0 0 auto; padding: .85rem 1.25rem; }
-    .btn-reject:hover { background: var(--red-l); }
-    .btn-outline { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
-    .btn-outline:hover { background: var(--light); }
-    .btn-ghost { background: var(--light); color: var(--accent); }
-    .btn-ghost:hover { background: #e0e7ff; }
+/* ── STEP 3: REVIEW ── */
+.rev-grid{display:grid;grid-template-columns:220px 1fr;gap:1.5rem;align-items:start}
+/* TikTok frame */
+.tk-wrap{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.tk-lbl{font-size:11px;font-weight:700;color:var(--amber);background:var(--amberl);border:1px solid #fde68a;padding:.2em .6em;border-radius:999px}
+.tkf{
+  width:180px;height:320px;
+  background:linear-gradient(155deg,#1e1b4b 0%,#312e81 45%,#0f2744 80%,#0f172a 100%);
+  border-radius:16px;position:relative;overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
+}
+.tkf::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,rgba(129,140,248,.3) 0%,transparent 65%);
+  animation:tkglow 3.5s ease-in-out infinite;
+}
+@keyframes tkglow{0%,100%{opacity:.5}50%{opacity:1}}
+.tk-prod{
+  position:absolute;top:40px;left:50%;transform:translateX(-50%);
+  width:82px;height:82px;border-radius:50%;
+  background:linear-gradient(135deg,#c7d2fe,#818cf8,#6366f1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;box-shadow:0 8px 24px rgba(99,102,241,.55);
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+.tk-draft-tag{position:absolute;top:8px;left:8px;background:var(--amber);color:#000;font-size:7.5px;font-weight:900;letter-spacing:.06em;padding:.2em .45em;border-radius:4px}
+.tk-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;
+  animation:tp 2.5s ease-in-out infinite;
+}
+@keyframes tp{0%,100%{background:rgba(255,255,255,.2)}50%{background:rgba(255,255,255,.32)}}
+.tk-right{position:absolute;right:7px;bottom:85px;display:flex;flex-direction:column;align-items:center;gap:11px}
+.tk-ic{display:flex;flex-direction:column;align-items:center;gap:1px}
+.tk-ic span{font-size:15px}
+.tk-ic small{font-size:8px;color:rgba(255,255,255,.85);font-weight:600}
+.tk-bot{position:absolute;bottom:0;left:0;right:0;padding:.6rem .5rem;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.tk-user{font-size:9.5px;font-weight:700;color:#fff;margin-bottom:.2rem}
+.tk-cap{font-size:8.5px;color:rgba(255,255,255,.9);line-height:1.35}
+.tk-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.2)}
+.tk-bar-f{height:100%;background:#fff;width:0%;animation:vplay 12s linear forwards}
+@keyframes vplay{to{width:100%}}
+.tk-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-20deg);font-size:16px;font-weight:900;letter-spacing:.18em;color:rgba(255,255,255,.05);pointer-events:none;white-space:nowrap}
+.tk-note{font-size:11px;color:var(--muted);text-align:center;max-width:180px;line-height:1.4}
+/* Review panel */
+.rev-panel{display:flex;flex-direction:column;gap:.9rem}
+.checklist{list-style:none}
+.cl-i{display:flex;align-items:center;gap:.6rem;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.cl-i:last-child{border-bottom:none}
+.clk{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;background:var(--greenl);border:1.5px solid var(--green);color:var(--green)}
+.caption-box{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.6rem .85rem;font-size:13.5px;font-family:inherit;color:var(--sub);line-height:1.55;min-height:72px;resize:none;background:#fafbfc}
+.caption-box:focus{outline:none;border-color:var(--accent)}
+.tags-r{display:flex;flex-wrap:wrap;gap:.35rem}
+.tp{font-size:12px;font-weight:600;background:var(--alight);color:var(--accent);padding:.2em .6em;border-radius:999px}
+.upload-warn{background:var(--amberl);border:1px solid #fde68a;border-radius:10px;padding:.85rem 1rem;font-size:13.5px;color:#78350f}
+.upload-warn strong{display:block;font-weight:700;font-size:14px;margin-bottom:.2rem}
+.act-row{display:flex;gap:.6rem}
+.act-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:.4rem;line-height:1.5}
 
-    /* ── STEP 2: GENERATING ── */
-    .gen-center { display: flex; flex-direction: column; align-items: center; padding: 3rem 0; }
-    .spinner {
-      width: 52px; height: 52px; border-radius: 50%;
-      border: 4px solid var(--light);
-      border-top-color: var(--accent);
-      animation: spin .8s linear infinite;
-      margin-bottom: 2rem;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .gen-list { list-style: none; display: flex; flex-direction: column; gap: .65rem; width: 320px; }
-    .gen-item {
-      display: flex; align-items: center; gap: .75rem;
-      font-size: 14px; color: var(--muted);
-      opacity: 0; transform: translateY(6px);
-      animation: fadeUp .4s forwards;
-    }
-    .gen-item.done { color: var(--text); }
-    @keyframes fadeUp { to { opacity: 1; transform: none; } }
-    .gen-item:nth-child(1) { animation-delay: .4s; }
-    .gen-item:nth-child(2) { animation-delay: 1.1s; }
-    .gen-item:nth-child(3) { animation-delay: 1.8s; }
-    .gen-item:nth-child(4) { animation-delay: 2.5s; }
-    .gen-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
-    .gen-icon-done { background: var(--green-l); color: var(--green); }
-    .gen-icon-spin { background: var(--light); color: var(--accent); }
+/* ── STEP 4: UPLOAD ── */
+.up-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.upl{list-style:none}
+.ur{display:flex;align-items:flex-start;gap:.7rem;padding:.65rem 0;border-bottom:1px solid var(--border)}
+.ur:last-child{border-bottom:none}
+.ur.done .uic{background:var(--greenl) !important;border:none !important;color:var(--green) !important;animation:none !important}
+.uic{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:2px}
+.uic-w{background:#f1f5f9;color:var(--muted)}
+.uic-s{background:var(--alight);border:2px solid var(--accent);border-top-color:transparent;animation:spin .7s linear infinite}
+.uic-d{background:var(--greenl);color:var(--green)}
+.utxt{font-size:13.5px;color:var(--sub)}
+.utxt strong{display:block;color:var(--text);margin-bottom:.05rem}
+.ucode{font-size:11.5px;color:var(--accent);font-family:'Courier New',monospace}
+.uprog-wrap{margin:1.25rem 0}
+.uprog-out{height:10px;background:var(--alight);border-radius:999px;overflow:hidden}
+.uprog-f{height:100%;background:var(--accent);border-radius:999px;transition:width .4s ease}
+.uprog-pct{font-size:12px;color:var(--muted);margin-top:.4rem;text-align:right}
+.callouts{display:flex;flex-direction:column;gap:.85rem}
+.cbox{border-radius:12px;padding:1.1rem 1.25rem}
+.cbox-title{font-size:14px;font-weight:700;margin:.25rem 0 .2rem}
+.cbox-desc{font-size:13px;line-height:1.5}
+.cb-grn{background:#f0fdf4;border:1px solid #86efac}
+.cb-grn .cbox-title{color:var(--green)}
+.cb-grn .cbox-desc{color:#15803d}
+.cb-red{background:var(--redl);border:1px solid #fca5a5}
+.cb-red .cbox-title{color:var(--red)}
+.cb-red .cbox-desc{color:#991b1b}
+.cb-amb{background:var(--amberl);border:1px solid #fde68a}
+.cb-amb .cbox-title{color:var(--amber)}
+.cb-amb .cbox-desc{color:#92400e}
 
-    /* ── STEP 3: REVIEW DASHBOARD ── */
-    .review-alert {
-      background: var(--amber-l); border: 1px solid #fde68a;
-      border-radius: 10px; padding: .75rem 1rem;
-      display: flex; align-items: center; gap: .6rem;
-      margin-bottom: 1.5rem; font-size: 13.5px;
-    }
-    .review-alert strong { color: var(--amber); }
+/* ── STEP 5: SUCCESS ── */
+.suc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;align-items:start}
+.suc-left{text-align:center}
+.suc-ico{
+  width:70px;height:70px;border-radius:50%;
+  background:var(--greenl);color:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin:0 auto 1rem;
+  animation:pop .5s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.suc-title{font-size:1.4rem;font-weight:800;letter-spacing:-.4px;margin-bottom:.4rem}
+.suc-note{font-size:14px;color:var(--muted);max-width:300px;margin:0 auto 1.25rem;line-height:1.55}
+.inbox-card{background:var(--navy);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:1rem;text-align:left}
+.ic-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#475569;margin-bottom:.6rem}
+.ic-row{display:flex;align-items:center;gap:.65rem}
+.ic-thumb{width:38px;height:38px;border-radius:6px;background:linear-gradient(135deg,var(--accent),var(--amid));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ic-name{font-size:13px;font-weight:600;color:#e2e8f0}
+.ic-meta{font-size:11px;color:#64748b;margin-top:.1rem}
+.ic-badge{margin-left:auto;background:#1e293b;color:#94a3b8;border:1px solid #334155;font-size:10.5px;font-weight:700;padding:.2em .55em;border-radius:999px}
+.pub-steps{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.85rem;text-align:left}
+.ps-hd{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.5rem}
+.ps-r{display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--sub);margin-bottom:.35rem}
+.ps-n{width:18px;height:18px;border-radius:50%;background:var(--alight);color:var(--accent);font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.srow{display:flex;gap:.6rem;margin-bottom:.85rem}
+.sb{flex:1;background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:.6rem .75rem;text-align:center}
+.sb.hl{background:var(--redl);border-color:#fca5a5}
+.sbv{font-size:1rem;font-weight:800}
+.sb.hl .sbv{color:var(--red)}
+.sbl{font-size:10.5px;color:var(--muted);margin-top:.1rem}
+/* Compliance checklist */
+.comp-list{list-style:none}
+.ci{
+  display:flex;align-items:flex-start;gap:.65rem;
+  padding:.55rem 0;border-bottom:1px solid var(--border);
+  font-size:13.5px;color:var(--sub);
+  opacity:0;transform:translateX(-8px);
+  animation:sIn .35s forwards;
+}
+@keyframes sIn{to{opacity:1;transform:none}}
+.ci:nth-child(1){animation-delay:.2s}
+.ci:nth-child(2){animation-delay:.5s}
+.ci:nth-child(3){animation-delay:.8s}
+.ci:nth-child(4){animation-delay:1.1s}
+.ci:nth-child(5){animation-delay:1.4s}
+.ci:nth-child(6){animation-delay:1.7s}
+.ci:nth-child(7){animation-delay:2.0s}
+.ci:nth-child(8){animation-delay:2.3s}
+.ci:last-child{border-bottom:none}
+.cck{width:20px;height:20px;border-radius:50%;background:var(--greenl);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.ci strong{color:var(--text);display:block;margin-bottom:.05rem}
 
-    .review-layout { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; align-items: start; }
+/* ── STEP 6: END SCREEN ── */
+#s6{
+  background:linear-gradient(135deg,var(--navy) 0%,#1e1b4b 50%,#0f2744 100%);
+  min-height:calc(100vh - 120px);border-radius:20px;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 2rem;text-align:center;
+}
+.end-logo{display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem}
+.end-logo svg{width:46px;height:46px}
+.end-lt{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.end-lt em{color:var(--amid);font-style:normal}
+.end-tag{font-size:.9rem;color:#64748b;margin-bottom:2.25rem}
+.end-badge{
+  background:rgba(79,70,229,.2);border:1px solid rgba(129,140,248,.4);
+  color:var(--amid);font-size:13px;font-weight:700;
+  padding:.5em 1.35em;border-radius:999px;margin-bottom:2rem;letter-spacing:.04em;
+}
+.pillars{display:flex;gap:1.25rem;margin-bottom:2.5rem;width:100%;max-width:760px}
+.pillar{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:1.25rem 1.5rem;flex:1;text-align:center}
+.pico{font-size:2rem;margin-bottom:.5rem}
+.ptitle{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:.3rem}
+.pdesc{font-size:12px;color:#64748b;line-height:1.5}
+.end-sts{margin-bottom:2rem}
+.end-st{font-size:14px;color:#94a3b8;margin-bottom:.35rem}
+.end-st strong{color:#e2e8f0}
+.end-ct{font-size:12.5px;color:#334155;margin-bottom:1.5rem}
+.end-ct a{color:var(--amid)}
+.replay{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.8rem 2.25rem;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.replay:hover{background:#4338ca}
 
-    /* TikTok video mockup */
-    .tiktok-frame-wrap { display: flex; flex-direction: column; align-items: center; gap: .75rem; }
-    .tiktok-draft-badge {
-      background: var(--amber-l); color: var(--amber);
-      border: 1px solid #fde68a; border-radius: 999px;
-      font-size: 11px; font-weight: 700; padding: .25em .75em;
-      letter-spacing: .03em;
-    }
-    .tiktok-frame {
-      width: 200px; height: 355px;
-      background: linear-gradient(160deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 80%, #0f172a 100%);
-      border-radius: 16px; position: relative; overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,.4);
-      cursor: pointer;
-    }
-
-    /* Animated color wash */
-    .tiktok-frame::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 40% 60%, rgba(99,102,241,.25) 0%, transparent 70%);
-      animation: pulse 3s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{ opacity:.6 } 50%{ opacity:1 } }
-
-    /* Simulated product visual */
-    .product-blob {
-      position: absolute; top: 55px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 100px;
-      background: linear-gradient(135deg, #c7d2fe, #818cf8, #6366f1);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
-      box-shadow: 0 8px 24px rgba(99,102,241,.5);
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float { 0%,100%{ transform: translateX(-50%) translateY(0) } 50%{ transform: translateX(-50%) translateY(-8px) } }
-
-    /* Play button */
-    .play-btn-overlay {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 44px; height: 44px;
-      background: rgba(255,255,255,.18); backdrop-filter: blur(4px);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 16px; color: #fff;
-      transition: background .15s;
-    }
-    .tiktok-frame:hover .play-btn-overlay { background: rgba(255,255,255,.28); }
-    .playing .play-btn-overlay { background: rgba(255,255,255,.1); }
-
-    /* Right side TikTok icons */
-    .tiktok-right {
-      position: absolute; right: 8px; bottom: 100px;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-    }
-    .tiktok-icon { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-    .tiktok-icon span { font-size: 18px; }
-    .tiktok-icon small { font-size: 9px; color: rgba(255,255,255,.8); font-weight: 600; }
-
-    /* Bottom overlay */
-    .tiktok-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: .75rem .6rem;
-      background: linear-gradient(transparent, rgba(0,0,0,.75));
-    }
-    .tiktok-username { font-size: 11px; font-weight: 700; color: #fff; margin-bottom: .2rem; }
-    .tiktok-caption { font-size: 10px; color: rgba(255,255,255,.9); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    /* DRAFT watermark */
-    .tiktok-watermark {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%) rotate(-20deg);
-      font-size: 22px; font-weight: 900; letter-spacing: .15em;
-      color: rgba(255,255,255,.06); pointer-events: none;
-      white-space: nowrap;
-    }
-
-    /* Video progress bar */
-    .vid-progress {
-      width: 100%; height: 2px; background: rgba(255,255,255,.2);
-      position: absolute; bottom: 0; left: 0;
-    }
-    .vid-progress-fill {
-      height: 100%; background: #fff; width: 0%;
-      transition: width .1s linear;
-    }
-    .tiktok-frame.playing .vid-progress-fill { animation: vidplay 12s linear forwards; }
-    @keyframes vidplay { to { width: 100%; } }
-
-    /* DRAFT badge on frame */
-    .draft-corner {
-      position: absolute; top: 10px; left: 10px;
-      background: var(--amber); color: #000;
-      font-size: 9px; font-weight: 900; letter-spacing: .08em;
-      padding: .2em .5em; border-radius: 4px;
-    }
-
-    /* Edit panel */
-    .edit-panel { display: flex; flex-direction: column; gap: 1rem; }
-    .account-row {
-      display: flex; align-items: center; gap: .6rem;
-      background: #f8fafc; border: 1px solid var(--border);
-      border-radius: 10px; padding: .65rem .9rem;
-    }
-    .account-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--mid));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; color: #fff; font-weight: 700; flex-shrink: 0;
-    }
-    .account-info { flex: 1; min-width: 0; }
-    .account-name { font-size: 13px; font-weight: 700; color: var(--text); }
-    .account-status { font-size: 11.5px; color: var(--green); font-weight: 600; }
-    .oauth-lock { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: .3rem; }
-
-    .tags-wrap { display: flex; flex-wrap: wrap; gap: .4rem; padding: .5rem .75rem; border: 1.5px solid var(--border); border-radius: 8px; min-height: 44px; cursor: text; }
-    .tag-chip {
-      display: flex; align-items: center; gap: .3rem;
-      background: var(--light); color: var(--accent);
-      font-size: 12.5px; font-weight: 600;
-      padding: .2em .55em; border-radius: 999px;
-    }
-    .tag-chip button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 11px; line-height: 1; padding: 0; }
-
-    .privacy-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-
-    .upload-warning {
-      background: var(--amber-l); border: 1px solid #fde68a;
-      border-radius: 10px; padding: .75rem 1rem;
-      font-size: 13px; color: #78350f;
-    }
-    .upload-warning strong { display: block; font-size: 13.5px; margin-bottom: .2rem; }
-
-    .action-row { display: flex; gap: .75rem; margin-top: .25rem; }
-    .action-note { font-size: 11.5px; color: var(--muted); text-align: center; margin-top: .5rem; }
-
-    /* Limit indicator */
-    .limit-bar { display: flex; align-items: center; gap: .75rem; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: .5rem .85rem; margin-top: .25rem; }
-    .limit-dots { display: flex; gap: .3rem; }
-    .limit-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .limit-dot.used { background: var(--accent); }
-    .limit-dot.free { background: var(--border); }
-    .limit-text { font-size: 12px; color: var(--muted); }
-
-    /* ── STEP 4: UPLOADING ── */
-    .upload-center { display: flex; flex-direction: column; align-items: center; padding: 3rem 0; max-width: 480px; margin: 0 auto; }
-    .upload-title { font-size: 1.2rem; font-weight: 700; margin-bottom: .4rem; }
-    .upload-sub { color: var(--muted); font-size: 14px; margin-bottom: 2rem; text-align: center; }
-    .upload-steps-list { width: 100%; display: flex; flex-direction: column; gap: .65rem; margin-bottom: 1.75rem; }
-    .upload-step-row { display: flex; align-items: center; gap: .75rem; font-size: 14px; color: var(--muted); }
-    .upload-step-row.done { color: var(--green); }
-    .upload-step-row.active { color: var(--text); font-weight: 600; }
-    .u-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
-    .u-icon-done { background: var(--green-l); color: var(--green); }
-    .u-icon-spin { background: var(--light); animation: spinSlow 1s linear infinite; }
-    .u-icon-wait { background: #f1f5f9; }
-    @keyframes spinSlow { to { transform: rotate(360deg); } }
-
-    .progress-outer { width: 100%; height: 8px; background: var(--light); border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; width: 0%; transition: width .15s linear; }
-
-    /* ── STEP 5: SUCCESS ── */
-    .success-center { display: flex; flex-direction: column; align-items: center; padding: 2.5rem 0; text-align: center; }
-    .success-icon {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: var(--green-l); color: var(--green);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px; margin-bottom: 1.25rem;
-      animation: popIn .4s cubic-bezier(.34,1.56,.64,1) forwards;
-    }
-    @keyframes popIn { from{ transform: scale(.6); opacity: 0; } to{ transform: scale(1); opacity: 1; } }
-    .success-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -.4px; margin-bottom: .4rem; }
-    .success-sub { color: var(--muted); max-width: 420px; margin-bottom: 1.75rem; font-size: 14.5px; }
-
-    .draft-inbox-card {
-      background: var(--navy); border-radius: 16px; padding: 1.25rem 1.5rem;
-      width: 100%; max-width: 420px; margin-bottom: 1.5rem; text-align: left;
-    }
-    .dic-title { font-size: 12px; color: #64748b; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .75rem; }
-    .dic-row { display: flex; align-items: center; gap: .75rem; }
-    .dic-thumb {
-      width: 42px; height: 42px; border-radius: 6px;
-      background: linear-gradient(135deg, var(--accent), var(--mid));
-      flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px;
-    }
-    .dic-info .dic-name { font-size: 13.5px; font-weight: 600; color: #e2e8f0; }
-    .dic-info .dic-meta { font-size: 11.5px; color: #64748b; margin-top: .1rem; }
-    .dic-status { margin-left: auto; }
-    .dic-badge { font-size: 11px; font-weight: 700; padding: .25em .6em; border-radius: 999px; background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
-
-    .publish-steps {
-      background: #f8fafc; border: 1px solid var(--border);
-      border-radius: 12px; padding: 1rem 1.25rem;
-      max-width: 420px; width: 100%; text-align: left; margin-bottom: 1.5rem;
-    }
-    .ps-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .65rem; }
-    .ps-step { display: flex; align-items: center; gap: .6rem; font-size: 13.5px; color: var(--sub); margin-bottom: .4rem; }
-    .ps-num { width: 20px; height: 20px; border-radius: 50%; background: var(--light); color: var(--accent); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
-    .stats-row { display: flex; gap: 1rem; max-width: 420px; width: 100%; margin-bottom: 1.75rem; }
-    .stat-box { flex: 1; background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .85rem; text-align: center; }
-    .stat-val { font-size: 1rem; font-weight: 800; color: var(--text); }
-    .stat-label { font-size: 11px; color: var(--muted); margin-top: .1rem; }
-    .stat-box.highlight { background: var(--red-l); border-color: #fca5a5; }
-    .stat-box.highlight .stat-val { color: var(--red); }
-
-    .success-actions { display: flex; gap: .75rem; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 720px) {
-      .review-layout { grid-template-columns: 1fr; }
-      .tiktok-frame-wrap { align-items: flex-start; flex-direction: row; gap: 1rem; }
-      .tiktok-frame { width: 140px; height: 249px; }
-      .frow { grid-template-columns: 1fr; }
-    }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:780px){
+  .g2,.g3,.gen-grid,.rev-grid,.up-grid,.suc-grid{grid-template-columns:1fr}
+  .pillars{flex-direction:column}
+  .hdr-sub,.hdr-sep{display:none}
+  .hdr-pills{gap:.3rem}
+  .pill{font-size:9.5px}
+  .khint{display:none}
+  .scontrols{gap:.3rem}
+}
+</style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<header>
-  <div class="hdr">
-    <a class="logo-wrap" href="/">
-      <img src="/logo.svg" alt="CreatorDraft">
-      <span class="logo-text">Creator<em>Draft</em></span>
+<!-- ────────────── HEADER ────────────── -->
+<header class="hdr">
+  <div class="hdr-i">
+    <a class="logo-a" href="/">
+      <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#0f172a"/>
+        <path d="M14 12C14 11.1 14.9 10.5 15.7 10.9L30.3 19.4C31.1 19.8 31.1 20.2 30.3 20.6L15.7 29.1C14.9 29.5 14 28.9 14 28V12Z" fill="white"/>
+        <circle cx="30" cy="11" r="5.5" fill="#4f46e5"/>
+        <circle cx="30" cy="11" r="2.2" fill="white" opacity=".9"/>
+      </svg>
+      <span class="logo-txt">Creator<em>Draft</em></span>
     </a>
-    <div class="hdr-badges">
-      <span class="badge badge-demo">DEMO MODE</span>
-      <span class="badge badge-review">✓ Human Review: ON</span>
-      <span class="badge badge-nopub">✗ Auto-Publish: OFF</span>
-    </div>
-    <div class="hdr-account">
-      <span class="dot"></span>
-      <span>@yourhandle · Connected via TikTok OAuth</span>
+    <div class="hdr-sep"></div>
+    <span class="hdr-sub">TikTok Shop UGC Draft Tool — API Review Demo</span>
+    <div class="hdr-pills">
+      <span class="pill p-green">✓ Human Review: ON</span>
+      <span class="pill p-red">✗ Auto-Publish: OFF</span>
+      <span class="pill p-blue">📁 Draft Only</span>
+      <span class="pill p-amber">✋ Manual Publish</span>
+      <span class="pill p-slate">TikTok API Compliant</span>
     </div>
   </div>
 </header>
 
-<!-- ── PROGRESS ── -->
-<div class="progress-wrap">
-  <div class="progress-inner">
-    <div class="prog-step active" id="ps1">
-      <div class="prog-dot">1</div>
-      <div class="prog-label">Product Input</div>
+<!-- ────────────── STEP NAV ────────────── -->
+<nav class="snav">
+  <div class="snav-i">
+    <div class="snav-top">
+      <div class="dots" id="dots">
+        <div class="dot cur" onclick="goTo(0)">1</div>
+        <div class="dot" onclick="goTo(1)">2</div>
+        <div class="dot" onclick="goTo(2)">3</div>
+        <div class="dot" onclick="goTo(3)">4</div>
+        <div class="dot" onclick="goTo(4)">5</div>
+        <div class="dot" onclick="goTo(5)">✓</div>
+      </div>
+      <span id="slabel" class="slabel">Step 1 of 5 — Product Input</span>
+      <span id="ssub" class="ssub">Auto-advancing in 5s</span>
+      <div class="scontrols">
+        <button class="sctl sctl-ghost" onclick="goTo(Math.max(cur-1,0))">← Prev</button>
+        <button class="sctl sctl-pause" id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
+        <button class="sctl sctl-ghost" onclick="goTo(Math.min(cur+1,5))">Next →</button>
+        <button class="sctl sctl-ghost" onclick="goTo(0)">↺ Restart</button>
+        <span class="khint">Space · ← →</span>
+      </div>
     </div>
-    <div class="prog-step" id="ps2">
-      <div class="prog-dot">2</div>
-      <div class="prog-label">AI Generation</div>
+    <div class="cbar-wrap"><div class="cbar" id="cbar"></div></div>
+  </div>
+</nav>
+
+<!-- ────────────── MAIN ────────────── -->
+<div class="main">
+
+<!-- ══════════════ STEP 1: PRODUCT INPUT ══════════════ -->
+<div class="step on" id="s1">
+  <div class="card">
+    <h1 class="big">Generate New UGC Draft <span class="pill p-blue" style="font-size:11px;vertical-align:middle">Step 1 of 5</span></h1>
+    <p class="bsub">Enter product details. Every generated video requires your manual approval before anything uploads to TikTok.</p>
+
+    <div class="g2">
+      <div class="fg">
+        <label>TikTok Shop Product</label>
+        <input type="text" value="LANEIGE Lip Sleeping Mask — TikTok Shop">
+      </div>
+      <div class="fg">
+        <label>Niche / Category</label>
+        <select><option selected>Beauty &amp; Skincare</option><option>Lifestyle</option><option>Wellness</option><option>Fashion</option><option>Home &amp; Living</option></select>
+      </div>
     </div>
-    <div class="prog-step" id="ps3">
-      <div class="prog-dot">3</div>
-      <div class="prog-label">Human Review</div>
+    <div class="g3">
+      <div class="fg">
+        <label>Target Audience</label>
+        <input type="text" value="Female 18–35, lifestyle shoppers">
+      </div>
+      <div class="fg">
+        <label>Content Tone</label>
+        <select><option selected>Authentic UGC, conversational</option><option>Enthusiastic review</option><option>Soft aesthetic</option><option>GRWM / Tutorial</option></select>
+      </div>
+      <div class="fg">
+        <label>Video Format</label>
+        <select><option selected>Hook + Demo + CTA</option><option>Unboxing review</option><option>Before &amp; after</option></select>
+      </div>
     </div>
-    <div class="prog-step" id="ps4">
-      <div class="prog-dot">4</div>
-      <div class="prog-label">Draft Upload</div>
+
+    <div class="sechd">Workflow Settings — Locked for Compliance</div>
+    <div class="lock-panel">
+      <div class="lp-row">
+        <span class="lp-k">🔒 Human review before upload</span>
+        <span class="lp-v lv-on">REQUIRED — cannot disable</span>
+      </div>
+      <div class="lp-row">
+        <span class="lp-k">🚫 Auto-publish to TikTok feed</span>
+        <span class="lp-v lv-off">PERMANENTLY OFF</span>
+      </div>
+      <div class="lp-row">
+        <span class="lp-k">📁 Upload mode</span>
+        <span class="lp-v lv-on">Draft Inbox Only — never posts publicly</span>
+      </div>
+      <div class="lp-row">
+        <span class="lp-k">⚡ Daily draft upload limit</span>
+        <span class="lp-v lv-neu">Max 3 drafts per day</span>
+      </div>
+      <div class="lp-row">
+        <span class="lp-k">🔗 TikTok authorization</span>
+        <span class="lp-v lv-on">OAuth 2.0 only — no passwords stored</span>
+      </div>
     </div>
-    <div class="prog-step" id="ps5">
-      <div class="prog-dot">5</div>
-      <div class="prog-label">Confirmed</div>
+
+    <div class="alert al-blue">
+      <span class="al-ico">ℹ️</span>
+      <div class="al-body"><strong>Creator-assistive workflow</strong>No video uploads without your explicit approval. AI generates the draft — you decide what TikTok sees.</div>
+    </div>
+
+    <button class="btn btn-acc btn-full" onclick="goTo(1)">▶ &nbsp; Generate UGC Script &amp; Preview Draft</button>
+  </div>
+</div>
+
+<!-- ══════════════ STEP 2: AI GENERATION ══════════════ -->
+<div class="step" id="s2">
+  <div class="card">
+    <h1 class="big">AI Generating Draft <span class="pill p-blue" style="font-size:11px;vertical-align:middle">Step 2 of 5</span></h1>
+    <p class="bsub">Researching product, writing script, and rendering preview. <strong>Nothing uploads until you review and approve.</strong></p>
+
+    <div class="gen-grid">
+      <div>
+        <div class="sechd">Generation Progress</div>
+        <ul class="gen-list">
+          <li class="gr">
+            <span class="gico ico-ok">✓</span>
+            <div class="gtxt"><strong>TikTok Shop product analyzed</strong>Extracted: benefits, price, reviews, trending angle</div>
+          </li>
+          <li class="gr">
+            <span class="gico ico-ok">✓</span>
+            <div class="gtxt"><strong>UGC script written</strong><code>"I tried this for 7 days and..."</code></div>
+          </li>
+          <li class="gr">
+            <span class="gico ico-ok">✓</span>
+            <div class="gtxt"><strong>Caption drafted</strong>Affiliate disclosure added automatically</div>
+          </li>
+          <li class="gr">
+            <span class="gico ico-ok">✓</span>
+            <div class="gtxt"><strong>Hashtags generated</strong>5 trending + 3 niche hashtags</div>
+          </li>
+          <li class="gr">
+            <span class="gico ico-ok">✓</span>
+            <div class="gtxt"><strong>Voiceover &amp; B-roll selected</strong>Matching product aesthetic</div>
+          </li>
+          <li class="gr">
+            <span class="gico ico-sp"></span>
+            <div class="gtxt"><strong>Rendering final video preview...</strong>MP4 · 9:16 portrait · 22.3 MB</div>
+          </li>
+        </ul>
+        <div class="gen-note">⚠️ <strong>Awaiting human review.</strong> This video will NOT upload until you watch it and click Approve in Step 3.</div>
+      </div>
+
+      <div>
+        <div class="gen-preview">
+          <div class="gp-lbl">📝 Generated Script Preview</div>
+          <div class="sl sl-hook"><span class="sl-badge">HOOK</span>"I never thought I'd find my holy grail lip product on TikTok Shop, but here we are..."</div>
+          <div class="sl sl-demo"><span class="sl-badge">DEMO</span>"Watch me apply this every single night — the texture is incredible, it absorbs fast, and by morning..."</div>
+          <div class="sl sl-cta"><span class="sl-badge">CTA</span>"It's linked in my bio right now on TikTok Shop. Shipping is so fast. You need this."</div>
+
+          <div class="gp-lbl" style="margin-top:1rem">💬 Generated Caption</div>
+          <div class="gen-cap">This changed my night routine forever 🌙✨ The @LANEIGE lip sleeping mask is literal magic — I wake up with THE softest lips every single day. On TikTok Shop now, link in bio! 🛒 #ad #tiktokmademebuyit #laneige #skincare #beautyfinds #tiktokshop</div>
+
+          <div class="gp-lbl" style="margin-top:.85rem">🏷 Hashtags</div>
+          <div class="gen-tags">
+            <span class="g-tag">#ad</span>
+            <span class="g-tag">#tiktokmademebuyit</span>
+            <span class="g-tag">#laneige</span>
+            <span class="g-tag">#skincareroutine</span>
+            <span class="g-tag">#beautyfinds</span>
+            <span class="g-tag">#tiktokshop</span>
+            <span class="g-tag">#lipsleepingmask</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ── MAIN ── -->
-<div class="main">
-
-  <!-- ── STEP 1: PRODUCT INPUT ── -->
-  <div class="step active" id="step-1">
-    <div class="card">
-      <h1 class="step-title">Generate New UGC Draft</h1>
-      <p class="step-sub">Enter a TikTok Shop product. AI will write a script, generate a video, and queue it for your review.</p>
-
-      <div class="frow">
-        <div class="fgroup">
-          <label>Product Name or TikTok Shop URL</label>
-          <input type="text" value="LANEIGE Lip Sleeping Mask — TikTok Shop">
-        </div>
-        <div class="fgroup">
-          <label>Category</label>
-          <select><option selected>Beauty &amp; Skincare</option><option>Lifestyle</option><option>Wellness</option><option>Fashion</option><option>Home</option></select>
-        </div>
-      </div>
-
-      <div class="frow">
-        <div class="fgroup">
-          <label>Target Audience</label>
-          <input type="text" value="Female 18–35, lifestyle shoppers">
-        </div>
-        <div class="fgroup">
-          <label>Tone</label>
-          <select><option selected>Authentic UGC, conversational</option><option>Enthusiastic review</option><option>Soft aesthetic</option><option>GRWM / tutorial</option></select>
-        </div>
-      </div>
-
-      <div class="settings-panel">
-        <div class="setting-row">
-          <span class="setting-label">🔒 Human review required before upload</span>
-          <span class="setting-val val-on">REQUIRED — always on</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">🚫 Auto-publish to TikTok feed</span>
-          <span class="setting-val val-off">OFF — cannot enable</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">📊 Daily draft upload limit</span>
-          <span class="setting-val val-neutral">Max 3 per day</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label">🔗 TikTok account</span>
-          <span class="setting-val val-on">@yourhandle · OAuth connected</span>
-        </div>
-      </div>
-
-      <button class="btn btn-primary" onclick="goStep(2)">
-        ▶ &nbsp; Generate Script &amp; Preview
-      </button>
-    </div>
+<!-- ══════════════ STEP 3: HUMAN REVIEW ══════════════ -->
+<div class="step" id="s3">
+  <div class="alert al-red">
+    <span class="al-ico">🛑</span>
+    <div class="al-body"><strong>Mandatory Human Review — No upload occurs until you click "Approve Draft"</strong>Watch the full preview, review every field, then approve or reject. This is enforced at the system level — no API call is made without your explicit action.</div>
   </div>
 
-  <!-- ── STEP 2: GENERATING ── -->
-  <div class="step" id="step-2">
-    <div class="card">
-      <div class="gen-center">
-        <div class="spinner"></div>
-        <ul class="gen-list">
-          <li class="gen-item">
-            <span class="gen-icon gen-icon-done">✓</span>
-            Researching product features &amp; TikTok Shop listing...
-          </li>
-          <li class="gen-item">
-            <span class="gen-icon gen-icon-done">✓</span>
-            Writing UGC hook script (3-second hook + demo + CTA)...
-          </li>
-          <li class="gen-item">
-            <span class="gen-icon gen-icon-done">✓</span>
-            Generating voiceover and selecting B-roll footage...
-          </li>
-          <li class="gen-item" id="gen-last">
-            <span class="gen-icon gen-icon-spin" style="border:2px solid var(--accent); border-top-color:transparent; border-radius:50%"></span>
-            Rendering final video preview...
-          </li>
-        </ul>
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <div>
+        <h2 style="font-size:1.1rem;font-weight:800">Human Review Dashboard <span class="pill p-blue" style="font-size:11px;vertical-align:middle">Step 3 of 5</span></h2>
+        <p style="font-size:13px;color:var(--muted);margin-top:.2rem">Draft #1 · Review required before upload · Daily limit: 1 of 3 used</p>
       </div>
-    </div>
-  </div>
-
-  <!-- ── STEP 3: REVIEW DASHBOARD ── -->
-  <div class="step" id="step-3">
-    <div class="review-alert">
-      <span style="font-size:18px">⚠️</span>
-      <div><strong>Human Review Required</strong> — Watch the preview, edit the caption, then approve or reject. <strong>Nothing uploads until you click Approve.</strong></div>
+      <span style="font-size:12px;background:var(--amberl);color:var(--amber);border:1px solid #fde68a;padding:.3em .85em;border-radius:999px;font-weight:700">⏳ Awaiting Your Approval</span>
     </div>
 
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+    <div class="rev-grid">
+      <!-- Left: TikTok video mockup -->
+      <div class="tk-wrap">
+        <span class="tk-lbl">⚑ DRAFT PREVIEW</span>
+        <div class="tkf">
+          <div class="tk-prod">💄</div>
+          <div class="tk-wm">DRAFT</div>
+          <div class="tk-draft-tag">DRAFT</div>
+          <div class="tk-play">▶</div>
+          <div class="tk-right">
+            <div class="tk-ic"><span>🤍</span><small>24.2K</small></div>
+            <div class="tk-ic"><span>💬</span><small>412</small></div>
+            <div class="tk-ic"><span>↗️</span><small>Share</small></div>
+            <div class="tk-ic"><span>🎵</span><small>Original</small></div>
+          </div>
+          <div class="tk-bot">
+            <div class="tk-user">@yourhandle</div>
+            <div class="tk-cap">This changed my night routine 🌙✨ The LANEIGE lip sleeping mask is literal magic — waking up with THE softest lips #tiktokmademebuyit #ad</div>
+          </div>
+          <div class="tk-bar"><div class="tk-bar-f"></div></div>
+        </div>
+        <p class="tk-note">Preview plays above. Watch in full before approving.</p>
+      </div>
+
+      <!-- Right: Review panel -->
+      <div class="rev-panel">
+
+        <!-- Checklist -->
         <div>
-          <h2 style="font-size:1.1rem;font-weight:700">Draft #1 of 3 daily maximum</h2>
-          <p style="font-size:13px;color:var(--muted)">Review this video carefully before approving for draft upload</p>
-        </div>
-        <span style="font-size:12px;background:var(--light);color:var(--accent);padding:.3em .8em;border-radius:999px;font-weight:700">Awaiting Approval</span>
-      </div>
-
-      <div class="review-layout">
-
-        <!-- Left: TikTok video mockup -->
-        <div class="tiktok-frame-wrap">
-          <div class="tiktok-draft-badge">⚑ DRAFT PREVIEW</div>
-          <div class="tiktok-frame" id="vidFrame" onclick="togglePlay()">
-            <div class="product-blob">💄</div>
-            <div class="tiktok-watermark">DRAFT</div>
-            <div class="draft-corner">DRAFT</div>
-            <div class="play-btn-overlay" id="playBtn">▶</div>
-            <div class="tiktok-right">
-              <div class="tiktok-icon"><span>🤍</span><small>24.2K</small></div>
-              <div class="tiktok-icon"><span>💬</span><small>412</small></div>
-              <div class="tiktok-icon"><span>↗️</span><small>Share</small></div>
-              <div class="tiktok-icon"><span>🎵</span><small>Original</small></div>
-            </div>
-            <div class="tiktok-bottom">
-              <div class="tiktok-username">@yourhandle</div>
-              <div class="tiktok-caption">This changed my night routine 🌙✨ The LANEIGE lip sleeping mask is literally magic — waking up with THE softest lips #tiktokmademebuyit</div>
-            </div>
-            <div class="vid-progress"><div class="vid-progress-fill" id="vidFill"></div></div>
-          </div>
-          <p style="font-size:11.5px;color:var(--muted);text-align:center;max-width:200px;line-height:1.4">Click to preview · You must watch before approving</p>
+          <div class="sechd">Creator Review Checklist</div>
+          <ul class="checklist">
+            <li class="cl-i"><span class="clk">✓</span>Watched video preview in full</li>
+            <li class="cl-i"><span class="clk">✓</span>Caption is accurate and on-brand</li>
+            <li class="cl-i"><span class="clk">✓</span>Hashtags are relevant and truthful</li>
+            <li class="cl-i"><span class="clk">✓</span>Product claims are accurate and verifiable</li>
+            <li class="cl-i"><span class="clk">✓</span>Affiliate disclosure (#ad) is included</li>
+            <li class="cl-i"><span class="clk">✓</span>Content complies with TikTok Community Guidelines</li>
+          </ul>
         </div>
 
-        <!-- Right: Edit panel -->
-        <div class="edit-panel">
-
-          <!-- Connected account -->
-          <div class="account-row">
-            <div class="account-avatar">Y</div>
-            <div class="account-info">
-              <div class="account-name">@yourhandle</div>
-              <div class="account-status">✓ Connected via TikTok OAuth</div>
-            </div>
-            <div class="oauth-lock">🔒 OAuth only</div>
-          </div>
-
-          <!-- Caption -->
-          <div class="fgroup" style="margin:0">
-            <label>Caption <span style="font-weight:400;color:var(--muted)">(editable)</span></label>
-            <textarea rows="4">This changed my night routine 🌙✨ The LANEIGE lip sleeping mask is literally magic — I wake up with THE softest lips every single day. On TikTok Shop now, link in bio 🛒 #tiktokmademebuyit #laneige #skincare #tiktokshop #beautyfinds</textarea>
-          </div>
-
-          <!-- Hashtags -->
-          <div class="fgroup" style="margin:0">
-            <label>Hashtags</label>
-            <div class="tags-wrap">
-              <span class="tag-chip">#tiktokmademebuyit <button>×</button></span>
-              <span class="tag-chip">#laneige <button>×</button></span>
-              <span class="tag-chip">#skincareroutine <button>×</button></span>
-              <span class="tag-chip">#beautyfinds <button>×</button></span>
-              <span class="tag-chip">#tiktokshop <button>×</button></span>
-            </div>
-          </div>
-
-          <!-- Privacy + Music -->
-          <div class="privacy-row">
-            <div class="fgroup" style="margin:0">
-              <label>Privacy</label>
-              <select><option>Public</option><option>Friends only</option><option>Private</option></select>
-            </div>
-            <div class="fgroup" style="margin:0">
-              <label>Music</label>
-              <select><option>No music (voiceover only)</option><option>TikTok trending</option></select>
-            </div>
-          </div>
-
-          <!-- Daily limit indicator -->
-          <div class="limit-bar">
-            <div class="limit-dots">
-              <div class="limit-dot used"></div>
-              <div class="limit-dot free"></div>
-              <div class="limit-dot free"></div>
-            </div>
-            <span class="limit-text">1 of 3 daily draft uploads used · Limit resets at midnight</span>
-          </div>
-
-          <!-- Upload warning -->
-          <div class="upload-warning">
-            <strong>📁 Draft upload only — not published</strong>
-            Approving sends this video to your TikTok <em>draft inbox</em>. It will <strong>NOT</strong> appear on your public profile. You must open TikTok and publish it manually.
-          </div>
-
-          <!-- Action buttons -->
-          <div class="action-row">
-            <button class="btn btn-reject" onclick="rejectDraft()">✕ &nbsp;Reject</button>
-            <button class="btn btn-approve" onclick="goStep(4)">✓ &nbsp;Approve — Upload as Draft</button>
-          </div>
-          <p class="action-note">By approving, you confirm you have watched this video in full and it complies with TikTok's Community Guidelines.</p>
-
+        <!-- Editable caption -->
+        <div>
+          <div class="sechd">Caption <span style="font-weight:400;color:var(--muted);font-size:11.5px;text-transform:none;letter-spacing:0">(editable before upload)</span></div>
+          <textarea class="caption-box" rows="3">This changed my night routine forever 🌙✨ The LANEIGE lip sleeping mask is literal magic — I wake up with THE softest lips every single day. On TikTok Shop now, link in bio! 🛒 #ad #tiktokmademebuyit #laneige #skincare #beautyfinds #tiktokshop</textarea>
         </div>
+
+        <!-- Hashtags -->
+        <div>
+          <div class="sechd">Hashtags</div>
+          <div class="tags-r">
+            <span class="tp">#ad</span><span class="tp">#tiktokmademebuyit</span><span class="tp">#laneige</span><span class="tp">#skincareroutine</span><span class="tp">#beautyfinds</span><span class="tp">#tiktokshop</span>
+          </div>
+        </div>
+
+        <!-- Compliance note -->
+        <div class="alert al-blue" style="margin:0">
+          <span class="al-ico">🤖</span>
+          <div class="al-body"><strong>AI Compliance Scan</strong>No misleading claims detected. Affiliate disclosure present. Content appears compliant with TikTok guidelines.</div>
+        </div>
+
+        <!-- Upload warning -->
+        <div class="upload-warn">
+          <strong>📁 Draft upload only — not a public post</strong>
+          Approving sends this to your TikTok <em>draft inbox</em>. It will <strong>NOT</strong> appear on your public TikTok profile. You must open TikTok and manually tap "Post" to publish.
+        </div>
+
+        <!-- Action buttons -->
+        <div class="act-row">
+          <button class="btn btn-red" onclick="handleReject()">✕ Reject</button>
+          <button class="btn btn-amb" onclick="handleEdit()">✎ Needs Edits</button>
+          <button class="btn btn-grn pulse" id="approveBtn" onclick="goTo(3)" style="flex:1;justify-content:center">✓ Approve Draft — Upload to Inbox</button>
+        </div>
+        <p class="act-note">By approving, you confirm you've watched this video in full, verified all claims, and consent to it uploading to your TikTok draft inbox. <strong>You must publish manually inside TikTok.</strong></p>
+
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ── STEP 4: UPLOADING ── -->
-  <div class="step" id="step-4">
-    <div class="card">
-      <div class="upload-center">
-        <div class="upload-title">Uploading to TikTok Draft Inbox</div>
-        <p class="upload-sub">Sending your approved video to <strong>@yourhandle</strong>'s TikTok draft inbox via TikTok Content Posting API</p>
+<!-- ══════════════ STEP 4: DRAFT UPLOAD ══════════════ -->
+<div class="step" id="s4">
+  <div class="alert al-grn">
+    <span class="al-ico">✅</span>
+    <div class="al-body"><strong>Creator approved — initiating draft upload</strong>Using TikTok Content Posting API (video.upload scope) to place approved video in draft inbox only. No public post will occur.</div>
+  </div>
 
-        <ul class="upload-steps-list" id="uploadList">
-          <li class="upload-step-row" id="us1">
-            <span class="u-icon u-icon-wait">○</span>
-            Authenticating via TikTok OAuth...
+  <div class="card">
+    <h1 class="big">Uploading to TikTok Draft Inbox <span class="pill p-blue" style="font-size:11px;vertical-align:middle">Step 4 of 5</span></h1>
+    <p class="bsub">Transmitting creator-approved video to <strong>@yourhandle</strong>'s TikTok draft inbox via official TikTok Content Posting API. <strong>Not posting to public feed.</strong></p>
+
+    <div class="up-grid">
+      <!-- Upload progress -->
+      <div>
+        <div class="sechd">Upload Progress</div>
+        <ul class="upl" id="upl">
+          <li class="ur" id="u1">
+            <span class="uic uic-w">○</span>
+            <div class="utxt"><strong>TikTok OAuth 2.0 — token validation</strong><span class="ucode">Bearer token · scope: video.upload · @yourhandle</span></div>
           </li>
-          <li class="upload-step-row" id="us2">
-            <span class="u-icon u-icon-wait">○</span>
-            Preparing video file for upload...
+          <li class="ur" id="u2">
+            <span class="uic uic-w">○</span>
+            <div class="utxt"><strong>Video file prepared &amp; validated</strong><span class="ucode">22.3 MB · H.264 · 9:16 portrait · 720p</span></div>
           </li>
-          <li class="upload-step-row" id="us3">
-            <span class="u-icon u-icon-wait">○</span>
-            Transmitting to TikTok API endpoint...
+          <li class="ur" id="u3">
+            <span class="uic uic-w">○</span>
+            <div class="utxt"><strong>Uploading to TikTok draft inbox</strong><span class="ucode">POST /v2/post/publish/inbox/video/init/</span></div>
           </li>
-          <li class="upload-step-row" id="us4">
-            <span class="u-icon u-icon-wait">○</span>
-            Confirming draft receipt from TikTok...
+          <li class="ur" id="u4">
+            <span class="uic uic-w">○</span>
+            <div class="utxt"><strong>Confirming draft receipt from TikTok</strong><span class="ucode">Awaiting publish_id confirmation...</span></div>
           </li>
         </ul>
 
-        <div class="progress-outer" style="margin-bottom:.6rem">
-          <div class="progress-fill" id="upFill"></div>
+        <div class="uprog-wrap">
+          <div class="uprog-out"><div class="uprog-f" id="upBar"></div></div>
+          <div class="uprog-pct" id="upPct">0%</div>
         </div>
-        <p style="font-size:12.5px;color:var(--muted)" id="upPct">0%</p>
       </div>
-    </div>
-  </div>
 
-  <!-- ── STEP 5: SUCCESS ── -->
-  <div class="step" id="step-5">
-    <div class="card">
-      <div class="success-center">
-        <div class="success-icon">✓</div>
-        <h1 class="success-title">Draft Uploaded Successfully</h1>
-        <p class="success-sub">Your video is now in your TikTok draft inbox. <strong>CreatorDraft did not publish it automatically.</strong> You must publish it manually inside TikTok.</p>
-
-        <!-- Draft inbox card -->
-        <div class="draft-inbox-card">
-          <div class="dic-title">📱 TikTok Draft Inbox · @yourhandle</div>
-          <div class="dic-row">
-            <div class="dic-thumb">💄</div>
-            <div class="dic-info">
-              <div class="dic-name">LANEIGE Lip Sleeping Mask UGC</div>
-              <div class="dic-meta">Uploaded just now · Draft · Not published</div>
-            </div>
-            <div class="dic-status">
-              <span class="dic-badge">DRAFT</span>
-            </div>
-          </div>
+      <!-- Callout boxes -->
+      <div class="callouts">
+        <div class="cbox cb-grn">
+          <div style="font-size:1.75rem">📁</div>
+          <div class="cbox-title">DRAFT UPLOAD ONLY</div>
+          <div class="cbox-desc">Video goes to @yourhandle's TikTok <strong>draft inbox</strong> — the same place as if they drafted it inside TikTok themselves.</div>
         </div>
-
-        <!-- How to publish -->
-        <div class="publish-steps">
-          <div class="ps-title">To Publish — Open TikTok App</div>
-          <div class="ps-step"><span class="ps-num">1</span> Open TikTok → tap your Profile</div>
-          <div class="ps-step"><span class="ps-num">2</span> Tap Drafts → find your video</div>
-          <div class="ps-step"><span class="ps-num">3</span> Review it one final time</div>
-          <div class="ps-step"><span class="ps-num">4</span> Tap <strong>Post Now</strong> to publish</div>
+        <div class="cbox cb-red">
+          <div style="font-size:1.75rem">🚫</div>
+          <div class="cbox-title">NOT PUBLICLY POSTED</div>
+          <div class="cbox-desc">This API call does <strong>not</strong> publish to the public feed. No TikTok followers will see this video until the creator manually posts it.</div>
         </div>
-
-        <!-- Stats -->
-        <div class="stats-row">
-          <div class="stat-box">
-            <div class="stat-val">1/3</div>
-            <div class="stat-label">Drafts today</div>
-          </div>
-          <div class="stat-box highlight">
-            <div class="stat-val">OFF</div>
-            <div class="stat-label">Auto-publish</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val">✓</div>
-            <div class="stat-label">Review done</div>
-          </div>
-        </div>
-
-        <div class="success-actions">
-          <button class="btn btn-ghost" onclick="goStep(1)">← New Draft</button>
-          <button class="btn btn-outline" onclick="alert('Open TikTok app → Profile → Drafts → Post Now')">Open TikTok Drafts ↗</button>
+        <div class="cbox cb-amb">
+          <div style="font-size:1.75rem">✋</div>
+          <div class="cbox-title">MANUAL PUBLISH REQUIRED</div>
+          <div class="cbox-desc">Creator must open the TikTok app, navigate to Drafts, review the video one final time, and tap <strong>Post Now</strong> themselves.</div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- ══════════════ STEP 5: SUCCESS + COMPLIANCE ══════════════ -->
+<div class="step" id="s5">
+  <div class="card">
+    <div class="suc-grid">
+
+      <!-- Left: Success summary -->
+      <div class="suc-left">
+        <div class="suc-ico">✓</div>
+        <h2 class="suc-title">Draft Uploaded Successfully</h2>
+        <p class="suc-note">Your video is in your TikTok draft inbox. <strong>It is NOT publicly visible.</strong> CreatorDraft did not publish anything automatically.</p>
+
+        <div class="inbox-card">
+          <div class="ic-lbl">📱 TikTok Draft Inbox — @yourhandle</div>
+          <div class="ic-row">
+            <div class="ic-thumb">💄</div>
+            <div>
+              <div class="ic-name">LANEIGE Lip Sleeping Mask UGC</div>
+              <div class="ic-meta">Just uploaded · Draft · Not published · Not visible to followers</div>
+            </div>
+            <span class="ic-badge">DRAFT</span>
+          </div>
+        </div>
+
+        <div class="pub-steps">
+          <div class="ps-hd">To Publish — Creator Opens TikTok App</div>
+          <div class="ps-r"><span class="ps-n">1</span>Open TikTok → tap your Profile</div>
+          <div class="ps-r"><span class="ps-n">2</span>Tap Drafts → find this video</div>
+          <div class="ps-r"><span class="ps-n">3</span>Watch it one final time</div>
+          <div class="ps-r"><span class="ps-n">4</span>Tap <strong>Post Now</strong> to publish publicly</div>
+        </div>
+
+        <div class="srow">
+          <div class="sb"><div class="sbv">1/3</div><div class="sbl">Drafts today</div></div>
+          <div class="sb hl"><div class="sbv">OFF</div><div class="sbl">Auto-publish</div></div>
+          <div class="sb"><div class="sbv">✓</div><div class="sbl">Review done</div></div>
+          <div class="sb"><div class="sbv">DRAFT</div><div class="sbl">Status</div></div>
+        </div>
+
+        <div style="display:flex;gap:.65rem;justify-content:center">
+          <button class="btn btn-ghost" onclick="goTo(0)">← New Draft</button>
+          <button class="btn btn-out" onclick="goTo(5)">View Compliance →</button>
+        </div>
+      </div>
+
+      <!-- Right: Compliance checklist -->
+      <div>
+        <div class="sechd">TikTok Content Posting API — Compliance Summary <span class="pill p-blue" style="font-size:10px;vertical-align:middle">Step 5 of 5</span></div>
+        <ul class="comp-list">
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>Human review completed</strong>Creator approved this video individually, one at a time, before any API call was made.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>Auto-publish is permanently disabled</strong>No content was posted automatically. Auto-publish is locked off and cannot be enabled by the creator.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>Draft-only upload</strong>Video is in TikTok draft inbox only — not visible on any public profile or feed.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>OAuth 2.0 authorization</strong>No TikTok passwords stored, accessed, or transmitted. All access via official TikTok OAuth token.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>No scraping or unauthorized access</strong>All TikTok data obtained exclusively via official API endpoints within approved scopes.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>No mass posting</strong>1 draft created today. Daily maximum: 3. Each upload requires individual human approval.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>Creator manually publishes</strong>Final publish action occurs inside TikTok's native app — CreatorDraft has no publish capability.</div>
+          </li>
+          <li class="ci">
+            <span class="cck">✓</span>
+            <div><strong>Single-account access</strong>Connected to @yourhandle only. One OAuth token, one account. No multi-account or agency access.</div>
+          </li>
+        </ul>
+        <div class="alert al-grn" style="margin-top:1.25rem">
+          <span class="al-ico">✅</span>
+          <div class="al-body"><strong>Workflow is compliant with TikTok Content Posting API requirements.</strong> This tool assists creators — it does not replace their judgment or automate public posting.</div>
+        </div>
+        <button class="btn btn-acc btn-full" onclick="goTo(5)" style="margin-top:1rem">View End Summary →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ STEP 6: END SCREEN ══════════════ -->
+<div class="step" id="s6">
+  <div class="end-logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="40" height="40" rx="10" fill="#0f172a"/>
+      <path d="M14 12C14 11.1 14.9 10.5 15.7 10.9L30.3 19.4C31.1 19.8 31.1 20.2 30.3 20.6L15.7 29.1C14.9 29.5 14 28.9 14 28V12Z" fill="white"/>
+      <circle cx="30" cy="11" r="5.5" fill="#4f46e5"/>
+      <circle cx="30" cy="11" r="2.2" fill="white" opacity=".9"/>
+    </svg>
+    <span class="end-lt">Creator<em>Draft</em></span>
+  </div>
+  <p class="end-tag">TikTok Shop UGC Draft Tool — Creator-Assistive Workflow</p>
+
+  <div class="end-badge">✓ Ready for TikTok Content Posting API Review</div>
+
+  <div class="end-sts">
+    <div class="end-st"><strong>Human review is mandatory</strong> for every single video — no exceptions.</div>
+    <div class="end-st"><strong>Auto-publishing is permanently disabled.</strong> Creators publish manually inside TikTok.</div>
+    <div class="end-st"><strong>Draft-only uploads.</strong> Videos go to the draft inbox — never the public feed.</div>
+    <div class="end-st"><strong>OAuth 2.0 only.</strong> No passwords stored. TikTok-native authentication throughout.</div>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pico">🔒</div>
+      <div class="ptitle">Human Review</div>
+      <div class="pdesc">Every video individually reviewed and approved by the creator before any API call is made</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">📁</div>
+      <div class="ptitle">Draft Only</div>
+      <div class="pdesc">Uploads go to TikTok draft inbox — never to the public feed. Creator publishes manually in TikTok</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">✓</div>
+      <div class="ptitle">API Compliant</div>
+      <div class="pdesc">OAuth 2.0 · video.upload scope only · official endpoints · no scraping · no mass posting</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">🎯</div>
+      <div class="ptitle">Creator First</div>
+      <div class="pdesc">AI assists with ideation and drafting — the creator retains full editorial and publishing control</div>
+    </div>
+  </div>
+
+  <p class="end-ct">Questions about this integration? <a href="mailto:support@creatordraft.app">support@creatordraft.app</a></p>
+  <button class="replay" onclick="goTo(0)">↺ &nbsp;Replay Demo</button>
+</div>
 
 </div><!-- /main -->
 
+<!-- ────────────── JAVASCRIPT ────────────── -->
 <script>
-  let currentStep = 1;
-  let isPlaying = false;
+const LABELS = [
+  'Product Input','AI Generation','Human Review','Draft Upload','Compliance Summary','Complete'
+];
+const DURATIONS = [5000, 7500, 11000, 6000, 9000, null]; // ms; null = stay
 
-  function goStep(n) {
-    document.getElementById('step-' + currentStep).classList.remove('active');
-    document.getElementById('ps' + currentStep).classList.remove('active');
-    document.getElementById('ps' + currentStep).classList.add('done');
+let cur = 0;
+let paused = false;
+let timer = null;
+let timerStart = null;
+let timerElapsed = 0;
 
-    currentStep = n;
-    document.getElementById('step-' + n).classList.add('active');
-    document.getElementById('ps' + n).classList.add('active');
+const dots = document.querySelectorAll('.dot');
+const steps = document.querySelectorAll('.step');
+const slabel = document.getElementById('slabel');
+const ssub = document.getElementById('ssub');
+const cbar = document.getElementById('cbar');
+const pauseBtn = document.getElementById('pauseBtn');
 
-    if (n === 2) startGeneration();
-    if (n === 4) startUpload();
+function updateNav() {
+  dots.forEach((d, i) => {
+    d.classList.toggle('done', i < cur);
+    d.classList.toggle('cur',  i === cur);
+    d.classList.remove(i < cur ? 'cur' : 'done');
+  });
+  const n = cur < 5 ? `Step ${cur+1} of 5 — ${LABELS[cur]}` : LABELS[5];
+  slabel.textContent = n;
+}
+
+function setCountdown(ms) {
+  if (ms === null) { cbar.style.transition = 'none'; cbar.style.width = '0%'; ssub.textContent = ''; return; }
+  cbar.style.transition = 'none';
+  cbar.style.width = '100%';
+  ssub.textContent = `Auto-advancing in ${Math.round(ms/1000)}s`;
+  // Trigger reflow then animate
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cbar.style.transition = `width ${ms}ms linear`;
+    cbar.style.width = '0%';
+  }));
+}
+
+function pauseCountdown() {
+  if (!timer || DURATIONS[cur] === null) return;
+  clearTimeout(timer);
+  timerElapsed += Date.now() - timerStart;
+  // Freeze bar
+  const w = parseFloat(getComputedStyle(cbar).width);
+  const tw = parseFloat(getComputedStyle(cbar.parentElement).width);
+  cbar.style.transition = 'none';
+  cbar.style.width = (w / tw * 100) + '%';
+  ssub.textContent = 'Paused';
+  pauseBtn.textContent = '▶ Resume';
+  paused = true;
+}
+
+function resumeCountdown() {
+  const remaining = (DURATIONS[cur] || 0) - timerElapsed;
+  timerStart = Date.now();
+  setCountdown(remaining);
+  timer = setTimeout(() => goTo(cur + 1), remaining);
+  pauseBtn.textContent = '⏸ Pause';
+  paused = false;
+}
+
+function togglePause() { if (paused) resumeCountdown(); else pauseCountdown(); }
+
+function startTimer() {
+  clearTimeout(timer);
+  timerElapsed = 0;
+  timerStart = Date.now();
+  const d = DURATIONS[cur];
+  setCountdown(d);
+  if (d !== null) timer = setTimeout(() => goTo(cur + 1), d);
+}
+
+function goTo(n) {
+  if (n < 0 || n > 5) return;
+  clearTimeout(timer);
+  paused = false;
+  pauseBtn.textContent = '⏸ Pause';
+
+  steps[cur].classList.remove('on');
+  cur = n;
+  steps[cur].classList.add('on');
+  // Scroll to top of main
+  document.querySelector('.main').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  updateNav();
+  startTimer();
+  initStep(cur);
+}
+
+function initStep(n) {
+  if (n === 3) animateUpload();
+  if (n === 2) {
+    // Pulse approve button after 8s
+    setTimeout(() => {
+      const ab = document.getElementById('approveBtn');
+      if (ab) ab.classList.add('pulse');
+    }, 8000);
   }
+}
 
-  function startGeneration() {
-    // Auto-advance to step 3 after 3.6 seconds
-    setTimeout(() => { goStep(3); }, 3700);
+// Upload animation (Step 4, index 3)
+function animateUpload() {
+  const bar = document.getElementById('upBar');
+  const pct = document.getElementById('upPct');
+  if (!bar) return;
+  bar.style.width = '0%'; pct.textContent = '0%';
+
+  const seq = [
+    { id:'u1', pct:22, delay:500 },
+    { id:'u2', pct:48, delay:1300 },
+    { id:'u3', pct:82, delay:2400 },
+    { id:'u4', pct:100, delay:3800 },
+  ];
+
+  seq.forEach(s => setTimeout(() => {
+    const row = document.getElementById(s.id);
+    if (!row) return;
+    row.classList.add('done');
+    const ico = row.querySelector('.uic');
+    ico.className = 'uic uic-d'; ico.textContent = '✓';
+    bar.style.width = s.pct + '%'; pct.textContent = s.pct + '%';
+  }, s.delay));
+}
+
+// Reject / needs edits handlers
+function handleReject() {
+  if (confirm('Reject this draft? It will be permanently deleted from the queue.')) {
+    alert('Draft rejected and deleted. Returning to product input.');
+    goTo(0);
   }
+}
+function handleEdit() { alert('Edit mode: caption and hashtags are now editable above. Make changes, then click Approve when ready.'); }
 
-  function togglePlay() {
-    const frame = document.getElementById('vidFrame');
-    const btn = document.getElementById('playBtn');
-    isPlaying = !isPlaying;
-    if (isPlaying) {
-      frame.classList.add('playing');
-      btn.textContent = '⏸';
-    } else {
-      frame.classList.remove('playing');
-      btn.textContent = '▶';
-    }
-  }
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === ' ') { e.preventDefault(); togglePause(); }
+  if (e.key === 'ArrowRight') { clearTimeout(timer); goTo(Math.min(cur+1,5)); }
+  if (e.key === 'ArrowLeft')  { clearTimeout(timer); goTo(Math.max(cur-1,0)); }
+  if (e.key === 'r' || e.key === 'R') { clearTimeout(timer); goTo(0); }
+});
 
-  function rejectDraft() {
-    if (confirm('Reject this draft? It will be deleted from the queue.')) {
-      alert('Draft rejected and deleted. Returning to product input.');
-      // Reset progress
-      for (let i = 2; i <= 5; i++) {
-        document.getElementById('ps' + i).classList.remove('done', 'active');
-      }
-      goStep(1);
-    }
-  }
-
-  function startUpload() {
-    const steps = [
-      { id: 'us1', delay: 400,  pct: 20  },
-      { id: 'us2', delay: 900,  pct: 45  },
-      { id: 'us3', delay: 1500, pct: 80  },
-      { id: 'us4', delay: 2200, pct: 100 },
-    ];
-
-    const fill = document.getElementById('upFill');
-    const pct  = document.getElementById('upPct');
-
-    steps.forEach(s => {
-      setTimeout(() => {
-        const row = document.getElementById(s.id);
-        row.classList.add('done');
-        row.querySelector('.u-icon').classList.remove('u-icon-wait');
-        row.querySelector('.u-icon').classList.add('u-icon-done');
-        row.querySelector('.u-icon').textContent = '✓';
-        fill.style.width = s.pct + '%';
-        pct.textContent = s.pct + '%';
-      }, s.delay);
-    });
-
-    setTimeout(() => { goStep(5); }, 3000);
-  }
+// Boot
+goTo(0);
 </script>
 </body>
 </html>
