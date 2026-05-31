@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <!-- Background: dark navy rounded square -->
+  <rect width="40" height="40" rx="10" fill="#0f172a"/>
+  <!-- Play arrow: white, slightly softened -->
+  <path d="M14 12C14 11.1 14.9 10.5 15.7 10.9L30.3 19.4C31.1 19.8 31.1 20.2 30.3 20.6L15.7 29.1C14.9 29.5 14 28.9 14 28V12Z" fill="white"/>
+  <!-- Draft indicator ring (indigo) -->
+  <circle cx="30" cy="11" r="5.5" fill="#4f46e5"/>
+  <!-- Inner dot (white) — "draft not yet published" -->
+  <circle cx="30" cy="11" r="2.2" fill="white" opacity="0.9"/>
+</svg>
