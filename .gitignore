@@ -1,0 +1,54 @@
+# Nested git repo — has its own repo, exclude entirely
+MoneyPrinterTurbo/
+
+# Secrets — NEVER commit these
+.env
+*.env
+credentials.json
+token.json
+
+# Temporary processing files
+.tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Node / Trigger.dev
+node_modules/
+trigger/node_modules/
+*.js.map
+
+# Generated videos / media
+*.mp4
+*.mp3
+*.wav
+*.srt
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Database (local SQLite — disposable)
+*.db
+*.sqlite
+*.sqlite3

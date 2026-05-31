@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- SETUP: Replace "CreatorDraft" with your app name and "creatordraft.app" with your domain -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatorDraft — Legal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #4f46e5; --accent-mid: #818cf8; --accent-light: #eef2ff;
+      --text: #111827; --text-mid: #374151; --text-muted: #6b7280;
+      --border: #e5e7eb; --bg: #fff; --header-bg: #0f172a;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    header { background: var(--header-bg); padding: 0 1.5rem; }
+    .hdr { max-width: 900px; margin: 0 auto; height: 54px; display: flex; align-items: center; }
+    .logo { font-weight: 700; font-size: 17px; color: #fff; text-decoration: none; letter-spacing: -.3px; }
+    .logo em { color: var(--accent-mid); font-style: normal; }
+
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 1.5rem; }
+    .hero { max-width: 640px; width: 100%; text-align: center; }
+    .badge {
+      display: inline-block;
+      background: var(--accent-light); color: var(--accent);
+      font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: .3em 1em; border-radius: 999px; margin-bottom: 1.25rem;
+    }
+    h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: .75rem; }
+    .sub { font-size: 1rem; color: var(--text-muted); max-width: 440px; margin: 0 auto 2.5rem; line-height: 1.6; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .card {
+      border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
+      text-decoration: none; color: inherit; text-align: left;
+      transition: box-shadow .15s, border-color .15s;
+    }
+    .card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(79,70,229,.12); }
+    .card-icon { font-size: 1.5rem; margin-bottom: .75rem; }
+    .card h2 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+    .card-link { display: block; font-size: 13px; color: var(--accent); font-weight: 600; margin-top: .75rem; }
+
+    footer { padding: 1.5rem; text-align: center; border-top: 1px solid var(--border); }
+    footer p { font-size: 13px; color: var(--text-muted); }
+
+    @media (max-width: 500px) {
+      .cards { grid-template-columns: 1fr; }
+      h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hdr">
+      <a class="logo" href="/">Creator<em>Draft</em></a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="badge">Legal Documents</div>
+      <h1>CreatorDraft Legal</h1>
+      <p class="sub">
+        TikTok Shop UGC draft tool for creators. Human review required for every upload.
+        No auto-publishing. Your content, your control.
+      </p>
+      <div class="cards">
+        <a class="card" href="/privacy">
+          <div class="card-icon">🔒</div>
+          <h2>Privacy Policy</h2>
+          <p>How we collect, store, and protect your data — including TikTok OAuth tokens and generated video files.</p>
+          <span class="card-link">Read Privacy Policy →</span>
+        </a>
+        <a class="card" href="/terms">
+          <div class="card-icon">📋</div>
+          <h2>Terms of Service</h2>
+          <p>Permitted use, mandatory human review requirements, content responsibility, and your rights.</p>
+          <span class="card-link">Read Terms of Service →</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 CreatorDraft · <a href="mailto:support@creatordraft.app" style="color:#6b7280">support@creatordraft.app</a></p>
+  </footer>
+</body>
+</html>

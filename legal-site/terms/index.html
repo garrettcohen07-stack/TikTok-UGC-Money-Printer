@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<!--
+  SETUP — Find & Replace before deploying:
+  • "CreatorDraft"          → your app name
+  • "creatordraft.app"      → your actual domain
+  • "support@creatordraft.app" → your support email
+  • "[YOUR STATE]"          → your state / country (governing law)
+  • "May 30, 2026"          → update effective date if you make edits
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Terms of Service for CreatorDraft — TikTok Shop UGC draft upload tool. Understand permitted use, human review requirements, and content responsibilities.">
+  <title>Terms of Service — CreatorDraft</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:       #4f46e5;
+      --accent-light: #eef2ff;
+      --accent-mid:   #818cf8;
+      --text:         #111827;
+      --text-mid:     #374151;
+      --text-muted:   #6b7280;
+      --border:       #e5e7eb;
+      --sidebar-bg:   #f8fafc;
+      --header-bg:    #0f172a;
+      --bg:           #ffffff;
+      --max:          1180px;
+      --sidebar-w:    248px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--header-bg);
+      position: sticky; top: 0; z-index: 200;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .hdr {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-weight: 700; font-size: 17px; color: #fff; text-decoration: none; letter-spacing: -.3px; }
+    .logo em { color: var(--accent-mid); font-style: normal; }
+    .hnav { display: flex; gap: 1.5rem; }
+    .hnav a { font-size: 13.5px; color: #94a3b8; text-decoration: none; transition: color .15s; }
+    .hnav a:hover, .hnav a.cur { color: #fff; }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ─── SIDEBAR ─── */
+    aside {
+      position: sticky;
+      top: 68px;
+      padding: 1.75rem 0;
+      max-height: calc(100vh - 82px);
+      overflow-y: auto;
+    }
+    .toc-hd {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: .75rem;
+    }
+    .toc a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: .28rem .55rem;
+      border-left: 2px solid transparent;
+      border-radius: 0 4px 4px 0;
+      transition: all .14s;
+      line-height: 1.45;
+    }
+    .toc a:hover { color: var(--text); background: var(--accent-light); border-left-color: var(--accent); }
+    .toc a.on { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); font-weight: 600; }
+
+    /* ─── MAIN ─── */
+    main { padding: 2.5rem 0 5rem; min-width: 0; }
+
+    .pg-head { margin-bottom: 2.25rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .pg-head h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: .4rem; }
+    .pg-meta { font-size: 13.5px; color: var(--text-muted); }
+    .pg-meta span { margin: 0 .4rem; }
+
+    .intro { color: var(--text-mid); margin-bottom: 1.75rem; }
+
+    section { margin-bottom: 2.75rem; scroll-margin-top: 76px; }
+
+    h2 {
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      background: var(--accent); color: #fff;
+      border-radius: 6px; font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    h3 { font-size: .95rem; font-weight: 600; color: var(--text); margin: 1.3rem 0 .5rem; }
+    p { color: var(--text-mid); margin-bottom: .85rem; }
+    ul, ol { margin: .4rem 0 1rem 1.4rem; color: var(--text-mid); }
+    li { margin-bottom: .3rem; }
+    a { color: var(--accent); }
+    code { font-size: .88em; background: #f1f5f9; padding: .1em .35em; border-radius: 4px; }
+
+    /* callout */
+    .note {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: .75rem 0 1.25rem;
+    }
+    .note p { margin: 0; font-size: 14px; }
+    .note strong { color: var(--accent); }
+
+    /* warning callout */
+    .warn {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: .75rem 0 1.25rem;
+    }
+    .warn p { margin: 0; font-size: 14px; }
+    .warn strong { color: #92400e; }
+
+    /* tag */
+    .tag {
+      display: inline-block;
+      background: #dcfce7; color: #166534;
+      font-size: 11px; font-weight: 700;
+      padding: .15em .55em; border-radius: 999px;
+      letter-spacing: .03em;
+      vertical-align: middle; margin-left: .4rem;
+    }
+    .tag-req {
+      background: #fee2e2; color: #991b1b;
+    }
+
+    /* table */
+    .tbl-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--sidebar-bg); border: 1px solid var(--border); padding: .55rem .85rem; font-weight: 600; font-size: 13px; color: var(--text-muted); text-align: left; }
+    td { border: 1px solid var(--border); padding: .55rem .85rem; vertical-align: top; color: var(--text-mid); }
+    td:first-child { font-weight: 500; color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--sidebar-bg);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    .ft { max-width: var(--max); margin: 0 auto; }
+    .ft-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .6rem; }
+    .ft-links a { font-size: 13.5px; color: var(--text-muted); text-decoration: none; }
+    .ft-links a:hover { color: var(--accent); }
+    .ft-copy { font-size: 12.5px; color: var(--text-muted); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 780px) {
+      .wrap { grid-template-columns: 1fr; gap: 0; }
+      aside {
+        position: static; max-height: none;
+        background: var(--sidebar-bg);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding-top: 1.5rem; }
+      .pg-head h1 { font-size: 1.5rem; }
+      .hnav { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a class="logo" href="/">Creator<em>Draft</em></a>
+    <nav class="hnav">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms" class="cur">Terms of Service</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <aside>
+    <div class="toc-hd">On this page</div>
+    <nav class="toc">
+      <a href="#agreement">1. Agreement to Terms</a>
+      <a href="#service">2. Description of Service</a>
+      <a href="#eligibility">3. Eligibility &amp; Authorization</a>
+      <a href="#permitted">4. Permitted Use</a>
+      <a href="#prohibited">5. Prohibited Conduct</a>
+      <a href="#human-review">6. Mandatory Human Review</a>
+      <a href="#content">7. Content Responsibility</a>
+      <a href="#tiktok">8. TikTok Compliance</a>
+      <a href="#api">9. API Usage &amp; Limits</a>
+      <a href="#ip">10. Intellectual Property</a>
+      <a href="#third-party">11. Third-Party Services</a>
+      <a href="#warranty">12. Disclaimer of Warranties</a>
+      <a href="#liability">13. Limitation of Liability</a>
+      <a href="#indemnify">14. Indemnification</a>
+      <a href="#termination">15. Termination</a>
+      <a href="#law">16. Governing Law</a>
+      <a href="#modifications">17. Modifications</a>
+      <a href="#contact">18. Contact</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="pg-head">
+      <h1>Terms of Service</h1>
+      <p class="pg-meta">
+        Effective: May 30, 2026
+        <span>·</span>
+        Last updated: May 30, 2026
+        <span>·</span>
+        CreatorDraft — TikTok Shop UGC Draft Tool
+      </p>
+    </div>
+
+    <p class="intro">
+      Please read these Terms of Service carefully before connecting your TikTok account or using
+      CreatorDraft. By accessing the service, you agree to be bound by these Terms. If you do not
+      agree, do not use CreatorDraft.
+    </p>
+
+    <!-- ── 1 ── -->
+    <section id="agreement">
+      <h2><span class="num">1</span> Agreement to Terms</h2>
+      <p>
+        These Terms of Service ("Terms") constitute a legally binding agreement between you ("you,"
+        "Creator," or "User") and CreatorDraft ("we," "us," or "our"). By creating an account,
+        connecting a TikTok account, or otherwise using any part of the CreatorDraft service
+        ("Service"), you acknowledge that you have read, understood, and agree to be bound by
+        these Terms and our <a href="/privacy">Privacy Policy</a>.
+      </p>
+      <p>
+        If you are using CreatorDraft on behalf of an organization, you represent that you have
+        authority to bind that organization to these Terms.
+      </p>
+    </section>
+
+    <!-- ── 2 ── -->
+    <section id="service">
+      <h2><span class="num">2</span> Description of Service</h2>
+      <p>CreatorDraft is a creator productivity tool for TikTok Shop affiliate marketers. The Service:</p>
+      <ul>
+        <li>Uses AI to generate short-form video scripts, product captions, and hashtag sets based on TikTok Shop products you specify</li>
+        <li>Provides a human review dashboard where you watch, edit, and individually approve or reject each generated video</li>
+        <li>Uploads only creator-approved videos to your TikTok account as <strong>unposted drafts</strong> via TikTok's official Content Posting API</li>
+        <li><strong>Does not publish any content to TikTok automatically.</strong> Publishing is a separate, manual action you take inside TikTok's native app or Creator Center</li>
+      </ul>
+      <div class="note">
+        <p>
+          <strong>Draft-only workflow:</strong> Every video you approve goes to your TikTok draft inbox —
+          not to your public feed. You remain fully in control of what gets published and when.
+        </p>
+      </div>
+      <p>
+        The Service is provided as a subscription or free-tier tool (as specified on the pricing page).
+        Features, pricing, and availability may change over time with notice to existing users.
+      </p>
+    </section>
+
+    <!-- ── 3 ── -->
+    <section id="eligibility">
+      <h2><span class="num">3</span> Eligibility and Account Authorization</h2>
+
+      <h3>3.1 Age Requirement</h3>
+      <p>You must be at least 18 years old to use CreatorDraft. By using the Service, you represent that you meet this requirement.</p>
+
+      <h3>3.2 TikTok Account Ownership</h3>
+      <p>
+        You must be the lawful owner of the TikTok account you connect to CreatorDraft. You may not
+        connect TikTok accounts that belong to other individuals, organizations, or entities without
+        their explicit written authorization and your own authorization agreement with us.
+      </p>
+
+      <h3>3.3 One Account Per Installation</h3>
+      <p>
+        CreatorDraft is designed for individual creator use. By default, one TikTok account may be
+        connected per CreatorDraft installation or user account. Agency or multi-account use requires
+        a separate commercial agreement with us.
+      </p>
+
+      <h3>3.4 TikTok Eligibility</h3>
+      <p>
+        You must comply with TikTok's own eligibility requirements, including age requirements and
+        TikTok Shop affiliate program eligibility. We make no representations about your eligibility
+        for TikTok or TikTok Shop programs.
+      </p>
+
+      <h3>3.5 Credential Security</h3>
+      <p>
+        You are responsible for maintaining the security of your CreatorDraft account credentials.
+        Do not share your login or OAuth tokens with any third party. Notify us immediately at
+        <a href="mailto:support@creatordraft.app">support@creatordraft.app</a> if you suspect
+        unauthorized access to your account.
+      </p>
+    </section>
+
+    <!-- ── 4 ── -->
+    <section id="permitted">
+      <h2><span class="num">4</span> Permitted Use</h2>
+      <p>You may use CreatorDraft to:</p>
+      <ul>
+        <li>Generate AI-assisted video scripts and captions for your own TikTok Shop affiliate content</li>
+        <li>Review, edit, approve, or reject AI-generated drafts in the CreatorDraft dashboard</li>
+        <li>Upload individually approved video drafts to your own TikTok account's draft inbox</li>
+        <li>Manage your draft queue, review history, and content calendar within CreatorDraft</li>
+        <li>Connect and disconnect your TikTok account at any time</li>
+      </ul>
+    </section>
+
+    <!-- ── 5 ── -->
+    <section id="prohibited">
+      <h2><span class="num">5</span> Prohibited Conduct</h2>
+
+      <div class="warn">
+        <p>
+          <strong>Violations of this section may result in immediate account suspension</strong>
+          and potential reporting to TikTok for ToS violations.
+        </p>
+      </div>
+
+      <p>You may NOT use CreatorDraft to:</p>
+
+      <h3>5.1 Platform Violations</h3>
+      <ul>
+        <li>Upload content that violates TikTok's Community Guidelines, advertising policies, or Terms of Service</li>
+        <li>Upload spam, coordinated inauthentic behavior, or content designed to manipulate TikTok's algorithm in violation of TikTok's policies</li>
+        <li>Upload misleading, deceptive, or fraudulent content, including fake product reviews or undisclosed paid promotions</li>
+        <li>Upload content that infringes copyright, trademark, or other intellectual property rights</li>
+        <li>Circumvent TikTok's rate limits, API quotas, or platform restrictions</li>
+      </ul>
+
+      <h3>5.2 Account and Identity Violations</h3>
+      <ul>
+        <li>Connect or manage TikTok accounts that you do not personally own</li>
+        <li>Impersonate other creators, brands, or public figures</li>
+        <li>Share your OAuth tokens, session credentials, or API access with third parties</li>
+        <li>Use CreatorDraft as a reseller service to manage other creators' accounts without authorization from both us and the account holders</li>
+      </ul>
+
+      <h3>5.3 System Violations</h3>
+      <ul>
+        <li>Attempt to reverse-engineer, decompile, or extract source code from CreatorDraft</li>
+        <li>Use automated scripts, bots, or tools to interact with CreatorDraft's interface beyond its intended use</li>
+        <li>Attempt to gain unauthorized access to CreatorDraft's systems, databases, or other users' data</li>
+        <li>Remove or obscure any proprietary notices or branding from CreatorDraft</li>
+        <li>Resell, sublicense, or create derivative products from CreatorDraft without written authorization</li>
+      </ul>
+
+      <h3>5.4 Content Violations</h3>
+      <ul>
+        <li>Upload content involving minors in any inappropriate context</li>
+        <li>Upload content promoting illegal activities, violence, or hate speech</li>
+        <li>Upload content containing personally identifiable information of third parties without their consent</li>
+        <li>Use CreatorDraft for purposes that violate any applicable local, national, or international laws</li>
+      </ul>
+    </section>
+
+    <!-- ── 6 ── -->
+    <section id="human-review">
+      <h2><span class="num">6</span> Mandatory Human Review Process <span class="tag tag-req">REQUIRED</span></h2>
+
+      <div class="note">
+        <p>
+          <strong>This section is foundational to the service.</strong> CreatorDraft is designed as a
+          creator-assistive tool, not an autonomous posting system. Every video must pass through
+          your personal review before any upload occurs.
+        </p>
+      </div>
+
+      <h3>6.1 Review Before Every Upload</h3>
+      <p>
+        Every video generated by CreatorDraft must be individually reviewed and explicitly approved
+        by you — the connected creator — before it is uploaded to TikTok. This is enforced at the
+        system level; no video can be transmitted to TikTok's API without a recorded approval action
+        from a logged-in user.
+      </p>
+
+      <h3>6.2 What Review Means</h3>
+      <p>Your approval constitutes your confirmation that you have:</p>
+      <ul>
+        <li>Watched the generated video in full within the CreatorDraft dashboard</li>
+        <li>Reviewed and edited the caption and hashtags to your satisfaction</li>
+        <li>Determined the content complies with TikTok's Community Guidelines and your niche standards</li>
+        <li>Determined the content complies with TikTok Shop affiliate program disclosure requirements</li>
+        <li>Authorized the video to be uploaded to your TikTok draft inbox</li>
+      </ul>
+
+      <h3>6.3 No Auto-Publishing</h3>
+      <p>
+        CreatorDraft uploads content exclusively to your TikTok <strong>draft inbox</strong> — not
+        to your public profile. After upload, the video sits as an unposted draft. Publishing the
+        draft to your public TikTok feed requires a separate, manual action by you inside:
+      </p>
+      <ul>
+        <li>The TikTok mobile app (Profile → Drafts → select draft → Post), or</li>
+        <li>TikTok Creator Center</li>
+      </ul>
+      <p>
+        CreatorDraft has no mechanism to trigger public posting and does not interact with the
+        TikTok <code>video.publish</code> endpoint.
+      </p>
+
+      <h3>6.4 Your Sole Responsibility</h3>
+      <p>
+        By approving a draft for upload, you accept full responsibility for that content. Your
+        approval action is a legally meaningful act of authorization. CreatorDraft is a tool;
+        you are the author and publisher of record for all content you approve and later publish
+        on TikTok.
+      </p>
+
+      <h3>6.5 Volume Limits</h3>
+      <p>
+        CreatorDraft enforces a configurable maximum of <strong>3 draft uploads per day</strong>
+        per connected TikTok account. This limit exists to prevent abuse and to keep usage within
+        patterns consistent with individual creator activity. Higher limits require written
+        authorization from us.
+      </p>
+    </section>
+
+    <!-- ── 7 ── -->
+    <section id="content">
+      <h2><span class="num">7</span> Content Standards and Responsibility</h2>
+
+      <h3>7.1 You Are Responsible for Your Content</h3>
+      <p>
+        You are solely responsible for all content you approve for upload and subsequently publish
+        on TikTok. This includes but is not limited to: video footage, voiceover, on-screen text,
+        captions, hashtags, product claims, and affiliate disclosures.
+      </p>
+
+      <h3>7.2 AI-Generated Content Disclaimer</h3>
+      <p>
+        CreatorDraft uses AI to generate script and caption suggestions. AI-generated content may
+        be inaccurate, incomplete, or inappropriate for your specific product or audience. It is your
+        responsibility to review, edit, and verify all AI-generated content before approving it for
+        upload. We make no warranty that AI-generated content will be accurate, original, or compliant
+        with any specific platform policy.
+      </p>
+
+      <h3>7.3 Affiliate Disclosure Requirements</h3>
+      <p>
+        If you are posting TikTok Shop affiliate content, you are responsible for complying with
+        all applicable FTC disclosure requirements, TikTok's branded content policies, and TikTok
+        Shop affiliate program guidelines. CreatorDraft may suggest disclosure language, but you
+        are responsible for ensuring disclosures are accurate and legally sufficient.
+      </p>
+
+      <h3>7.4 Product Claims</h3>
+      <p>
+        You are responsible for ensuring that any product claims, health claims, or performance
+        representations in your content are accurate, substantiated, and compliant with applicable
+        consumer protection laws and platform policies.
+      </p>
+
+      <h3>7.5 Copyright and Music</h3>
+      <p>
+        If your generated videos include music, sound effects, or footage, you are responsible for
+        ensuring you have the rights to use that content commercially. CreatorDraft is not responsible
+        for copyright claims arising from licensed or third-party media included in generated videos.
+      </p>
+    </section>
+
+    <!-- ── 8 ── -->
+    <section id="tiktok">
+      <h2><span class="num">8</span> TikTok Platform Compliance</h2>
+
+      <h3>8.1 Your TikTok Agreement</h3>
+      <p>
+        Your use of CreatorDraft is subject to TikTok's own
+        <a href="https://www.tiktok.com/legal/page/global/terms-of-service/en" target="_blank" rel="noopener">Terms of Service</a>
+        and
+        <a href="https://www.tiktok.com/community-guidelines" target="_blank" rel="noopener">Community Guidelines</a>.
+        By using CreatorDraft to upload content to TikTok, you represent that you have read and
+        agree to TikTok's terms. CreatorDraft does not modify, override, or supersede TikTok's
+        terms in any way.
+      </p>
+
+      <h3>8.2 TikTok Account Actions</h3>
+      <p>
+        TikTok may independently suspend, restrict, or permanently ban accounts that violate
+        their policies, regardless of how the content was created or uploaded. CreatorDraft
+        is not responsible for any such actions TikTok takes on your account, and we cannot
+        appeal or reverse TikTok's account decisions on your behalf.
+      </p>
+
+      <h3>8.3 API Access and Compliance</h3>
+      <p>
+        CreatorDraft uses TikTok's official Content Posting API under a developer license granted
+        by TikTok. This license may be modified, suspended, or revoked by TikTok at any time.
+        If TikTok revokes or modifies our API access, CreatorDraft's functionality may be affected
+        or discontinued with minimal notice.
+      </p>
+
+      <h3>8.4 No Scraping</h3>
+      <p>
+        CreatorDraft does not scrape, crawl, or otherwise extract data from TikTok's websites,
+        mobile apps, or services outside of official API endpoints. You may not use CreatorDraft
+        in any way that violates TikTok's robots.txt policies or automated data collection restrictions.
+      </p>
+    </section>
+
+    <!-- ── 9 ── -->
+    <section id="api">
+      <h2><span class="num">9</span> API Usage and Rate Limits</h2>
+      <p>
+        CreatorDraft operates within TikTok's API rate limits and our own usage controls. You agree not to:
+      </p>
+      <ul>
+        <li>Attempt to circumvent CreatorDraft's daily upload limits</li>
+        <li>Use multiple accounts or sessions to artificially increase upload volume</li>
+        <li>Trigger API calls through any means other than CreatorDraft's intended dashboard interface</li>
+      </ul>
+      <p>
+        We reserve the right to throttle, pause, or terminate your API-connected session if we
+        detect usage patterns inconsistent with individual creator activity or that risk
+        violating TikTok's developer terms.
+      </p>
+    </section>
+
+    <!-- ── 10 ── -->
+    <section id="ip">
+      <h2><span class="num">10</span> Intellectual Property</h2>
+
+      <h3>10.1 Your Content</h3>
+      <p>
+        You retain full ownership of the scripts, captions, and content you create or edit within
+        CreatorDraft. By uploading content to TikTok through our Service, you do not transfer
+        any ownership rights to us. We claim no ownership over content you generate or approve.
+      </p>
+
+      <h3>10.2 AI-Generated Suggestions</h3>
+      <p>
+        AI-generated scripts and captions produced by the Service are provided for your use and
+        editing. You may use, edit, and publish them as your own original content. We do not assert
+        copyright over AI suggestions, and you are free to modify them entirely.
+      </p>
+
+      <h3>10.3 CreatorDraft IP</h3>
+      <p>
+        The CreatorDraft software, interface design, brand, trademarks, logos, and proprietary
+        workflows are owned by us or our licensors. Nothing in these Terms grants you any right
+        to use our intellectual property outside of using the Service as permitted here.
+      </p>
+
+      <h3>10.4 Feedback</h3>
+      <p>
+        If you provide suggestions, feature requests, or other feedback about the Service, you grant
+        us a non-exclusive, royalty-free license to use that feedback to improve the Service without
+        any obligation to compensate you.
+      </p>
+    </section>
+
+    <!-- ── 11 ── -->
+    <section id="third-party">
+      <h2><span class="num">11</span> Third-Party Services</h2>
+      <p>
+        CreatorDraft integrates with third-party services including TikTok's API, Anthropic's Claude AI,
+        and cloud infrastructure providers. Your use of these services through CreatorDraft is also
+        subject to those providers' own terms of service. We are not responsible for the actions,
+        availability, or policies of third-party services.
+      </p>
+      <p>
+        Links to TikTok's policies and documentation are provided for your convenience.
+        We do not control TikTok's policies and they may change without notice to us.
+      </p>
+    </section>
+
+    <!-- ── 12 ── -->
+    <section id="warranty">
+      <h2><span class="num">12</span> Disclaimer of Warranties</h2>
+      <p>
+        THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND.
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE EXPRESSLY DISCLAIM ALL WARRANTIES,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
+      </p>
+      <ul>
+        <li>Warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+        <li>Warranties that the Service will be uninterrupted, error-free, or secure</li>
+        <li>Warranties that any content generated by the Service will be accurate, original, or suitable for publication</li>
+        <li>Warranties regarding TikTok's API availability, performance, or continued operation</li>
+        <li>Warranties that use of the Service will result in specific commercial outcomes, including views, sales, or affiliate commissions</li>
+      </ul>
+      <p>
+        You acknowledge that AI-generated content may contain errors and that it is your responsibility
+        to review all content before uploading or publishing.
+      </p>
+    </section>
+
+    <!-- ── 13 ── -->
+    <section id="liability">
+      <h2><span class="num">13</span> Limitation of Liability</h2>
+      <p>
+        TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL CREATORDRAFT, ITS
+        OWNERS, OFFICERS, EMPLOYEES, OR LICENSORS BE LIABLE FOR ANY:
+      </p>
+      <ul>
+        <li>Indirect, incidental, special, consequential, or punitive damages</li>
+        <li>Loss of profits, revenue, data, goodwill, or business opportunities</li>
+        <li>Damages arising from TikTok account suspension, restriction, or ban</li>
+        <li>Damages arising from changes to TikTok's API, policies, or algorithm</li>
+        <li>Damages arising from content you approved and published</li>
+        <li>Damages arising from your violation of these Terms or third-party terms</li>
+      </ul>
+      <p>
+        Our total cumulative liability to you for any claim arising under these Terms shall not
+        exceed the greater of (a) the amount you paid for the Service in the 12 months preceding
+        the claim, or (b) $100 USD.
+      </p>
+      <p>
+        Some jurisdictions do not allow the exclusion of certain warranties or limitation of
+        liability for certain damages. In such jurisdictions, our liability is limited to the
+        maximum extent permitted by law.
+      </p>
+    </section>
+
+    <!-- ── 14 ── -->
+    <section id="indemnify">
+      <h2><span class="num">14</span> Indemnification</h2>
+      <p>
+        You agree to indemnify, defend, and hold harmless CreatorDraft and its owners, officers,
+        employees, and licensors from and against any claims, liabilities, damages, losses, and
+        expenses (including reasonable legal fees) arising out of or relating to:
+      </p>
+      <ul>
+        <li>Content you approved, uploaded, or published using the Service</li>
+        <li>Your violation of these Terms or TikTok's Terms of Service</li>
+        <li>Your violation of any applicable law or third-party rights (including intellectual property and FTC disclosure requirements)</li>
+        <li>Your use of the Service in a manner inconsistent with its intended purpose</li>
+      </ul>
+    </section>
+
+    <!-- ── 15 ── -->
+    <section id="termination">
+      <h2><span class="num">15</span> Term and Termination</h2>
+
+      <h3>15.1 Duration</h3>
+      <p>
+        These Terms remain in effect from the moment you first access the Service until your
+        account is terminated, either by you or by us.
+      </p>
+
+      <h3>15.2 Termination by You</h3>
+      <p>
+        You may terminate your use of the Service at any time by disconnecting your TikTok account
+        from the CreatorDraft dashboard and requesting account deletion via
+        <a href="mailto:support@creatordraft.app">support@creatordraft.app</a>.
+        Upon your request, we will delete your personal data within 30 days.
+      </p>
+
+      <h3>15.3 Termination by Us</h3>
+      <p>
+        We reserve the right to suspend or terminate your access to the Service, with or without
+        notice, for:
+      </p>
+      <ul>
+        <li>Violation of these Terms</li>
+        <li>Violation of TikTok's Terms of Service in a way that jeopardizes our API developer license</li>
+        <li>Conduct that we reasonably believe is harmful to other users, third parties, or the Service</li>
+        <li>Extended inactivity (90+ days), with 14 days' advance notice</li>
+      </ul>
+
+      <h3>15.4 Effect of Termination</h3>
+      <p>
+        Upon termination: your OAuth tokens are immediately revoked, your stored data is deleted
+        per our retention schedule, and your access to the Service ends. Sections 7 (Content
+        Responsibility), 13 (Limitation of Liability), 14 (Indemnification), and 16 (Governing Law)
+        survive termination.
+      </p>
+    </section>
+
+    <!-- ── 16 ── -->
+    <section id="law">
+      <h2><span class="num">16</span> Governing Law and Dispute Resolution</h2>
+
+      <h3>16.1 Governing Law</h3>
+      <p>
+        These Terms and any disputes arising from your use of the Service are governed by the laws
+        of the State of [YOUR STATE], United States, without regard to conflict of law principles.
+      </p>
+
+      <h3>16.2 Informal Resolution</h3>
+      <p>
+        Before initiating any formal proceeding, you agree to contact us at
+        <a href="mailto:support@creatordraft.app">support@creatordraft.app</a>
+        and attempt to resolve the dispute informally. We will attempt to respond within 10
+        business days.
+      </p>
+
+      <h3>16.3 Binding Arbitration</h3>
+      <p>
+        If informal resolution fails, disputes shall be resolved by binding arbitration under the
+        rules of the American Arbitration Association (AAA), conducted in [YOUR STATE]. Class action
+        proceedings are expressly waived. You retain the right to seek relief in small claims court
+        for disputes within that court's jurisdiction.
+      </p>
+    </section>
+
+    <!-- ── 17 ── -->
+    <section id="modifications">
+      <h2><span class="num">17</span> Modifications to Terms</h2>
+      <p>
+        We may modify these Terms at any time. For material changes, we will provide at least
+        7 days' notice via:
+      </p>
+      <ul>
+        <li>Email notification to your registered email address</li>
+        <li>A notice displayed in the CreatorDraft dashboard</li>
+        <li>An updated "Last updated" date on this page</li>
+      </ul>
+      <p>
+        Continued use of the Service after the effective date of modified Terms constitutes
+        your acceptance of the changes. If you disagree with a material change, you may terminate
+        your account before the effective date.
+      </p>
+    </section>
+
+    <!-- ── 18 ── -->
+    <section id="contact">
+      <h2><span class="num">18</span> Contact</h2>
+      <p>For questions about these Terms, account issues, or to report a violation:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:support@creatordraft.app">support@creatordraft.app</a></li>
+        <li><strong>Subject line for legal matters:</strong> "Terms — [issue description]"</li>
+        <li><strong>Subject line for security reports:</strong> "Security — [issue description]"</li>
+        <li><strong>Response time:</strong> 2 business days for general inquiries; same day for security reports</li>
+      </ul>
+      <p>
+        Also see our <a href="/privacy">Privacy Policy</a> for information on how we collect
+        and use data.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="ft">
+    <div class="ft-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="mailto:support@creatordraft.app">Contact</a>
+    </div>
+    <p class="ft-copy">© 2026 CreatorDraft. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.toc a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('on'));
+        const a = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-78px 0px -55% 0px' });
+  secs.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

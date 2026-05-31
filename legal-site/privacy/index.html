@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<!--
+  SETUP — Find & Replace before deploying:
+  • "CreatorDraft"          → your app name
+  • "creatordraft.app"      → your actual domain
+  • "support@creatordraft.app" → your support email
+  • "[YOUR STATE]"          → your state / country (governing law)
+  • "May 30, 2026"          → update effective date if you make edits
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Privacy Policy for CreatorDraft — TikTok Shop UGC draft upload tool. Learn how we collect, store, and protect your data.">
+  <title>Privacy Policy — CreatorDraft</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:       #4f46e5;
+      --accent-light: #eef2ff;
+      --accent-mid:   #818cf8;
+      --text:         #111827;
+      --text-mid:     #374151;
+      --text-muted:   #6b7280;
+      --border:       #e5e7eb;
+      --sidebar-bg:   #f8fafc;
+      --header-bg:    #0f172a;
+      --bg:           #ffffff;
+      --max:          1180px;
+      --sidebar-w:    248px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--header-bg);
+      position: sticky; top: 0; z-index: 200;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .hdr {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-weight: 700; font-size: 17px; color: #fff; text-decoration: none; letter-spacing: -.3px; }
+    .logo em { color: var(--accent-mid); font-style: normal; }
+    .hnav { display: flex; gap: 1.5rem; }
+    .hnav a { font-size: 13.5px; color: #94a3b8; text-decoration: none; transition: color .15s; }
+    .hnav a:hover, .hnav a.cur { color: #fff; }
+
+    /* ─── LAYOUT ─── */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ─── SIDEBAR ─── */
+    aside {
+      position: sticky;
+      top: 68px;
+      padding: 1.75rem 0;
+      max-height: calc(100vh - 82px);
+      overflow-y: auto;
+    }
+    .toc-hd {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: .75rem;
+    }
+    .toc a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: .28rem .55rem;
+      border-left: 2px solid transparent;
+      border-radius: 0 4px 4px 0;
+      transition: all .14s;
+      line-height: 1.45;
+    }
+    .toc a:hover { color: var(--text); background: var(--accent-light); border-left-color: var(--accent); }
+    .toc a.on { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); font-weight: 600; }
+
+    /* ─── MAIN ─── */
+    main { padding: 2.5rem 0 5rem; min-width: 0; }
+
+    .pg-head { margin-bottom: 2.25rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .pg-head h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: .4rem; }
+    .pg-meta { font-size: 13.5px; color: var(--text-muted); }
+    .pg-meta span { margin: 0 .4rem; }
+
+    .intro { color: var(--text-mid); margin-bottom: 1.75rem; }
+
+    section { margin-bottom: 2.75rem; scroll-margin-top: 76px; }
+
+    h2 {
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      background: var(--accent); color: #fff;
+      border-radius: 6px; font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    h3 { font-size: .95rem; font-weight: 600; color: var(--text); margin: 1.3rem 0 .5rem; }
+    p { color: var(--text-mid); margin-bottom: .85rem; }
+    ul, ol { margin: .4rem 0 1rem 1.4rem; color: var(--text-mid); }
+    li { margin-bottom: .3rem; }
+    a { color: var(--accent); }
+    code { font-size: .88em; background: #f1f5f9; padding: .1em .35em; border-radius: 4px; }
+
+    /* callout */
+    .note {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: .75rem 0 1.25rem;
+    }
+    .note p { margin: 0; font-size: 14px; }
+    .note strong { color: var(--accent); }
+
+    /* tag */
+    .tag {
+      display: inline-block;
+      background: #dcfce7; color: #166534;
+      font-size: 11px; font-weight: 700;
+      padding: .15em .55em; border-radius: 999px;
+      letter-spacing: .03em;
+      vertical-align: middle; margin-left: .4rem;
+    }
+
+    /* table */
+    .tbl-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--sidebar-bg); border: 1px solid var(--border); padding: .55rem .85rem; font-weight: 600; font-size: 13px; color: var(--text-muted); text-align: left; }
+    td { border: 1px solid var(--border); padding: .55rem .85rem; vertical-align: top; color: var(--text-mid); }
+    td:first-child { font-weight: 500; color: var(--text); white-space: nowrap; }
+
+    /* divider */
+    hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--sidebar-bg);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    .ft { max-width: var(--max); margin: 0 auto; }
+    .ft-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: .6rem; }
+    .ft-links a { font-size: 13.5px; color: var(--text-muted); text-decoration: none; }
+    .ft-links a:hover { color: var(--accent); }
+    .ft-copy { font-size: 12.5px; color: var(--text-muted); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 780px) {
+      .wrap { grid-template-columns: 1fr; gap: 0; }
+      aside {
+        position: static; max-height: none;
+        background: var(--sidebar-bg);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding-top: 1.5rem; }
+      .pg-head h1 { font-size: 1.5rem; }
+      .hnav { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a class="logo" href="/">Creator<em>Draft</em></a>
+    <nav class="hnav">
+      <a href="/privacy" class="cur">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <aside>
+    <div class="toc-hd">On this page</div>
+    <nav class="toc">
+      <a href="#collect">1. Information We Collect</a>
+      <a href="#use">2. How We Use It</a>
+      <a href="#share">3. How We Share It</a>
+      <a href="#security">4. Storage &amp; Security</a>
+      <a href="#retention">5. Retention</a>
+      <a href="#tiktok">6. TikTok Compliance</a>
+      <a href="#rights">7. Your Rights</a>
+      <a href="#children">8. Children's Privacy</a>
+      <a href="#changes">9. Policy Changes</a>
+      <a href="#contact">10. Contact Us</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="pg-head">
+      <h1>Privacy Policy</h1>
+      <p class="pg-meta">
+        Effective: May 30, 2026
+        <span>·</span>
+        Last updated: May 30, 2026
+        <span>·</span>
+        CreatorDraft — TikTok Shop UGC Draft Tool
+      </p>
+    </div>
+
+    <p class="intro">
+      This Privacy Policy explains how CreatorDraft ("we," "our," or "us") collects, uses, stores, and
+      protects your information when you connect your TikTok account and use our creator workflow tool.
+      By connecting your TikTok account, you agree to the practices described here.
+    </p>
+    <p class="intro">
+      Our service is built on a single principle: <strong>you are always in control.</strong> No video is ever
+      published to TikTok without your explicit approval inside TikTok's native app. We collect only what is
+      necessary to upload creator-approved drafts. We do not sell data or use it for advertising.
+    </p>
+
+    <!-- ── 1 ── -->
+    <section id="collect">
+      <h2><span class="num">1</span> Information We Collect</h2>
+
+      <h3>1.1 TikTok Account Information (via OAuth 2.0)</h3>
+      <p>
+        When you authorize CreatorDraft through TikTok's official OAuth 2.0 flow, TikTok grants us
+        limited access tokens. We receive and store:
+      </p>
+      <ul>
+        <li><strong>TikTok User ID</strong> — a numeric identifier assigned to your account by TikTok</li>
+        <li><strong>Display name</strong> — your TikTok @handle, shown in our dashboard so you can confirm the correct account is connected</li>
+        <li><strong>Profile photo URL</strong> — a link to your TikTok avatar, used for display purposes only</li>
+        <li><strong>OAuth access token</strong> — a short-lived credential that authenticates API calls on your behalf; stored encrypted at rest, never logged</li>
+        <li><strong>OAuth refresh token</strong> — used to silently renew access tokens before they expire; stored encrypted at rest, never exposed in URLs or logs</li>
+      </ul>
+      <div class="note">
+        <p><strong>We never receive your TikTok password.</strong> Authentication is handled entirely by TikTok's own login system. We see only the access token TikTok issues after you approve our request.</p>
+      </div>
+
+      <h3>1.2 Content You Create or Input</h3>
+      <ul>
+        <li>Product names, TikTok Shop URLs, or affiliate links you enter as generation inputs</li>
+        <li>Video scripts, captions, and hashtag sets you write, edit, or approve in our review dashboard</li>
+        <li>Notes or rejection reasons you add to draft decisions</li>
+      </ul>
+
+      <h3>1.3 Generated Content (Temporary)</h3>
+      <p>Our AI pipeline creates the following files on your behalf, stored temporarily:</p>
+      <ul>
+        <li>Video files (.mp4) pending your review and approval</li>
+        <li>AI-generated scripts and captions awaiting your decision</li>
+        <li>Thumbnail images created for draft metadata</li>
+      </ul>
+      <p>
+        Generated video files are <strong>deleted within 24 hours</strong> of upload completion or draft
+        rejection. We do not retain copies of videos after they have been transmitted to TikTok.
+      </p>
+
+      <h3>1.4 Technical and Log Data</h3>
+      <ul>
+        <li>Browser type and version (for dashboard compatibility diagnostics)</li>
+        <li>Operating system</li>
+        <li>IP address — used for security and fraud prevention only; not linked to content records</li>
+        <li>Application error logs and API call timestamps — OAuth tokens and credentials are explicitly excluded from all log output</li>
+        <li>Draft upload success/failure status codes</li>
+      </ul>
+    </section>
+
+    <!-- ── 2 ── -->
+    <section id="use">
+      <h2><span class="num">2</span> How We Use Your Information</h2>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Data</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OAuth access token</td>
+              <td>To call TikTok's Content Posting API (<code>/v2/post/publish/inbox/video/init/</code>) and upload approved drafts to your account. Used exclusively for your account, and only when you trigger an upload by clicking "Approve" in our dashboard.</td>
+            </tr>
+            <tr>
+              <td>OAuth refresh token</td>
+              <td>To silently obtain new access tokens before they expire, so you don't need to re-authorize frequently. Refreshed using TikTok's token rotation endpoint; old tokens are invalidated immediately upon refresh.</td>
+            </tr>
+            <tr>
+              <td>TikTok username &amp; photo</td>
+              <td>Displayed in the review dashboard so you can confirm the correct TikTok account is connected before approving any content for upload.</td>
+            </tr>
+            <tr>
+              <td>Generated video files</td>
+              <td>Held temporarily while you review. Transmitted to TikTok's API as a draft upon your approval. Deleted within 24 hours regardless of outcome.</td>
+            </tr>
+            <tr>
+              <td>Scripts &amp; captions</td>
+              <td>Used to generate video content and populate TikTok draft metadata (caption field, hashtags). Retained in your queue until you delete them or 90 days of inactivity.</td>
+            </tr>
+            <tr>
+              <td>Technical logs</td>
+              <td>Diagnosing errors, monitoring API health, detecting abuse. Not linked to personal identity or content decisions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <p>
+          <strong>We never use your data for:</strong> advertising targeting, data brokerage,
+          third-party AI model training, analytics sold to brands, or any purpose unrelated to
+          operating CreatorDraft for your own TikTok account.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 3 ── -->
+    <section id="share">
+      <h2><span class="num">3</span> How We Share Information</h2>
+
+      <p>We do not sell, rent, or broker your personal data to any third party. We share your data only in the limited circumstances below.</p>
+
+      <h3>3.1 TikTok (Required for Service Operation)</h3>
+      <p>
+        When you approve a draft for upload, we transmit the video file and associated metadata
+        (caption, hashtags, privacy settings you select) to TikTok via TikTok's official Content
+        Posting API. This transmission authenticates as your action using your OAuth access token.
+        TikTok's handling of content you upload is governed by
+        <a href="https://www.tiktok.com/legal/page/global/privacy-policy/en" target="_blank" rel="noopener">TikTok's Privacy Policy</a>.
+      </p>
+
+      <h3>3.2 Infrastructure Providers</h3>
+      <p>
+        We use the following services, which may process your data on our behalf under data processing agreements:
+      </p>
+      <ul>
+        <li><strong>Database hosting</strong> (Supabase) — encrypted token and draft queue storage with row-level security</li>
+        <li><strong>Application hosting</strong> (Vercel / Render) — serving the web dashboard over HTTPS</li>
+        <li><strong>AI generation</strong> (Anthropic Claude API) — generating scripts and captions from product inputs; no TikTok credentials or personal identifiers are sent to the AI provider</li>
+      </ul>
+      <p>These providers do not have independent access to your TikTok OAuth tokens, video files, or personal data outside their specific contracted function.</p>
+
+      <h3>3.3 Legal Requirements</h3>
+      <p>
+        We may disclose information if required by applicable law, valid court order, or
+        governmental authority. Where legally permitted, we will notify you before disclosure occurs.
+      </p>
+
+      <h3>3.4 Business Transfers</h3>
+      <p>
+        If CreatorDraft is acquired or merged with another entity, your data may transfer to the
+        successor under equivalent privacy protections. We will provide notice at least 14 days
+        before any such transfer occurs.
+      </p>
+    </section>
+
+    <!-- ── 4 ── -->
+    <section id="security">
+      <h2><span class="num">4</span> Data Storage and Security</h2>
+
+      <h3>4.1 Encryption</h3>
+      <ul>
+        <li>OAuth access tokens and refresh tokens are encrypted at rest using AES-256</li>
+        <li>All connections use HTTPS / TLS 1.2 or higher — plaintext HTTP is rejected</li>
+        <li>Credentials and tokens are explicitly excluded from all application log output</li>
+        <li>Environment variables containing secrets are never committed to version control</li>
+      </ul>
+
+      <h3>4.2 Database Architecture</h3>
+      <ul>
+        <li><strong>Phase 1 (local):</strong> Encrypted SQLite database, accessible only to the local application process</li>
+        <li><strong>Phase 2+ (cloud):</strong> Supabase with row-level security (RLS) policies ensuring each user can only read or write their own records</li>
+        <li>Database backups are encrypted with the same AES-256 key as production data</li>
+      </ul>
+
+      <h3>4.3 Access Controls</h3>
+      <ul>
+        <li>OAuth tokens are never exposed in URLs, query strings, client-side JavaScript, or analytics events</li>
+        <li>Tokens are scoped to a single TikTok account per user session</li>
+        <li>Administrative access to the database requires multi-factor authentication</li>
+        <li>No employee or contractor has access to plaintext OAuth tokens</li>
+      </ul>
+
+      <h3>4.4 Incident Response</h3>
+      <p>
+        In the event of a confirmed breach affecting your TikTok credentials, we will notify you
+        within 72 hours and immediately revoke all affected tokens. Re-authorization will be required
+        before service resumes.
+      </p>
+    </section>
+
+    <!-- ── 5 ── -->
+    <section id="retention">
+      <h2><span class="num">5</span> Data Retention</h2>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Data Type</th><th>Retention Period</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>OAuth access token</td><td>Until you disconnect your TikTok account, or until TikTok invalidates the token</td></tr>
+            <tr><td>OAuth refresh token</td><td>Until you disconnect your account, or until revoked via TikTok's connected apps settings</td></tr>
+            <tr><td>Generated video files</td><td>Deleted within 24 hours of upload completion or draft rejection — whichever comes first</td></tr>
+            <tr><td>Draft scripts &amp; captions</td><td>Retained until you delete them from the dashboard, or 90 days after your last login</td></tr>
+            <tr><td>TikTok username &amp; photo URL</td><td>Retained while your account is connected; deleted immediately on disconnect</td></tr>
+            <tr><td>Application error logs</td><td>90 days, then permanently purged</td></tr>
+            <tr><td>IP address logs</td><td>30 days, then permanently purged</td></tr>
+            <tr><td>All personal data (deletion request)</td><td>Deleted within 30 days of a verified deletion request</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 6 ── -->
+    <section id="tiktok">
+      <h2><span class="num">6</span> TikTok Platform Compliance <span class="tag">KEY</span></h2>
+
+      <div class="note">
+        <p>
+          <strong>Official API only:</strong> CreatorDraft accesses TikTok exclusively through
+          TikTok's official Content Posting API endpoints. We comply fully with TikTok's
+          <a href="https://developers.tiktok.com/terms" target="_blank" rel="noopener">Developer Terms of Service</a>,
+          Platform Policy, and all applicable data handling requirements.
+        </p>
+      </div>
+
+      <h3>6.1 Scopes We Request</h3>
+      <p>CreatorDraft requests only the minimum permissions necessary to operate. At the time of publishing, these are:</p>
+      <ul>
+        <li><code>user.info.basic</code> — to display your TikTok username and profile photo in the review dashboard for account confirmation</li>
+        <li><code>video.upload</code> — to upload approved video files to your TikTok <strong>draft inbox</strong> (not published publicly)</li>
+      </ul>
+      <p>We do not request <code>video.publish</code>, <code>video.list</code>, or any other scopes beyond those listed. If we need additional scopes in the future, we will update this policy and request new authorization from you.</p>
+
+      <h3>6.2 Draft-Only Upload — No Auto-Publishing</h3>
+      <p>
+        The <code>video.upload</code> permission is used <strong>exclusively</strong> to upload videos
+        to your TikTok draft inbox via the inbox upload endpoint. Drafts are <strong>not published
+        automatically</strong>. You must open the TikTok app, locate the draft, review it, and tap
+        "Post" manually. CreatorDraft never triggers a public post under any circumstance.
+      </p>
+
+      <h3>6.3 No Scraping or Unauthorized Access</h3>
+      <p>
+        CreatorDraft does not scrape TikTok.com, TikTok's mobile app, TikTok Shop, or any TikTok
+        property. All TikTok data we access is obtained exclusively through official API endpoints
+        using credentials you have explicitly authorized via OAuth.
+      </p>
+
+      <h3>6.4 Single-Account Access Only</h3>
+      <p>
+        CreatorDraft only accesses the TikTok account of the user who authorized it. We never
+        access, post to, or manage any TikTok account other than the one the logged-in user
+        personally authenticated via OAuth.
+      </p>
+
+      <h3>6.5 Revoking Our Access</h3>
+      <p>You can revoke CreatorDraft's TikTok access at any time through either of these paths:</p>
+      <ul>
+        <li><strong>In CreatorDraft:</strong> Settings → Connected Accounts → Disconnect TikTok</li>
+        <li><strong>In TikTok App:</strong> Profile → ··· → Settings and Privacy → Security → Connected Apps → CreatorDraft → Remove Access</li>
+      </ul>
+      <p>Revocation takes effect immediately: all stored tokens are deleted and API access ends permanently until you re-authorize.</p>
+
+      <h3>6.6 TikTok Data Portability</h3>
+      <p>
+        Any data we receive from TikTok's API is used solely to operate the service on your behalf.
+        We do not combine TikTok-sourced data with data from other platforms for profiling purposes.
+        Upon your request, we will provide or delete all TikTok-derived data we hold about you
+        within 30 days.
+      </p>
+    </section>
+
+    <!-- ── 7 ── -->
+    <section id="rights">
+      <h2><span class="num">7</span> Your Rights and Choices</h2>
+
+      <p>Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
+      <ul>
+        <li><strong>Access</strong> — Request a copy of all personal data we hold about you</li>
+        <li><strong>Correction</strong> — Request that we correct inaccurate personal data</li>
+        <li><strong>Deletion</strong> — Request deletion of all personal data (see below)</li>
+        <li><strong>Portability</strong> — Request your data in a structured, machine-readable format</li>
+        <li><strong>Objection</strong> — Object to certain processing activities</li>
+        <li><strong>Restriction</strong> — Request we limit processing in certain circumstances</li>
+      </ul>
+
+      <h3>7.1 How to Delete Your Data</h3>
+      <p>To request full deletion of your account and all associated data:</p>
+      <ol>
+        <li>Disconnect your TikTok account from the CreatorDraft dashboard (immediately revokes API access)</li>
+        <li>Email <a href="mailto:support@creatordraft.app">support@creatordraft.app</a> with the subject <strong>"Data Deletion Request"</strong></li>
+        <li>We will confirm deletion of all stored records within 30 days</li>
+      </ol>
+      <p>
+        <strong>Note:</strong> Deleting your data from CreatorDraft does not delete content already
+        published to TikTok. Content management on TikTok must be done through TikTok's own app or
+        Creator Center.
+      </p>
+
+      <h3>7.2 Opt-Out of Non-Essential Processing</h3>
+      <p>
+        You may opt out of error log retention by contacting us. This may limit our ability to
+        diagnose issues with your account. You can also limit data collection by disconnecting your
+        TikTok account when not actively using the service.
+      </p>
+    </section>
+
+    <!-- ── 8 ── -->
+    <section id="children">
+      <h2><span class="num">8</span> Children's Privacy</h2>
+      <p>
+        CreatorDraft is intended for users who are 18 years of age or older. We do not knowingly
+        collect personal information from anyone under 18. If you believe a minor has provided personal
+        information to us, please contact us at
+        <a href="mailto:support@creatordraft.app">support@creatordraft.app</a>
+        and we will promptly delete that information.
+      </p>
+    </section>
+
+    <!-- ── 9 ── -->
+    <section id="changes">
+      <h2><span class="num">9</span> Changes to This Privacy Policy</h2>
+      <p>We may update this policy periodically to reflect changes in our practices, technology, or applicable law. For material changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this page</li>
+        <li>Send email notification to users with connected accounts at least 7 days before the new policy takes effect</li>
+        <li>Display a prominent notice in the CreatorDraft dashboard</li>
+      </ul>
+      <p>
+        Continued use of CreatorDraft after the effective date of a revised policy constitutes your
+        acceptance of the updated terms. If you disagree with material changes, you may disconnect
+        your account before the effective date.
+      </p>
+    </section>
+
+    <!-- ── 10 ── -->
+    <section id="contact">
+      <h2><span class="num">10</span> Contact Us</h2>
+      <p>For privacy questions, data requests, or concerns about our practices, contact us at:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:support@creatordraft.app">support@creatordraft.app</a></li>
+        <li><strong>Response time:</strong> We aim to respond within 2 business days</li>
+        <li><strong>Data deletion requests:</strong> Use subject line "Data Deletion Request" for priority routing</li>
+        <li><strong>Security issues:</strong> Use subject line "Security" for immediate escalation</li>
+      </ul>
+      <p>
+        For questions about TikTok's own data practices, refer to
+        <a href="https://www.tiktok.com/legal/page/global/privacy-policy/en" target="_blank" rel="noopener">TikTok's Privacy Policy</a>.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="ft">
+    <div class="ft-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="mailto:support@creatordraft.app">Contact</a>
+    </div>
+    <p class="ft-copy">© 2026 CreatorDraft. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Active TOC section tracking
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.toc a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('on'));
+        const a = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-78px 0px -55% 0px' });
+  secs.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
